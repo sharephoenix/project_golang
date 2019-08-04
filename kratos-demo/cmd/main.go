@@ -8,6 +8,7 @@ import (
 	"github.com/bilibili/kratos/pkg/log"
 	"kratos-demo/internal/server/http"
 	"kratos-demo/internal/service"
+	"kratos-demo/rpc"
 	"os"
 	"os/signal"
 	"syscall"
@@ -16,6 +17,16 @@ import (
 
 func main() {
 	//rpc.RpcServer()
+	exeDratos()
+}
+
+/*启动 rpc 服务*/
+func toCaseRpcServer()  {
+	rpc.ToCaseServer()
+}
+
+/*运行 kratos demo*/
+func exeDratos() {
 	flag.Parse()
 
 	if err := paladin.Init(); err != nil {

@@ -7,7 +7,7 @@ import (
 )
 
 
-func RpcClient() {
+func rpcClient() {
 	conn, err := rpc.DialHTTP("tcp", "127.0.0.1:8095")
 	if err != nil {
 		log.Fatalln("dailing error: ", err)

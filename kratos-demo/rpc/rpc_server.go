@@ -26,7 +26,7 @@ func (this *Arith) Divide(req ArithRequest, res *ArithResponse) error {
 	return nil
 }
 
-func RpcServer() {
+func rpcServer() {
 	rpc.Register(new(Arith)) // 注册rpc服务
 	rpc.HandleHTTP()         // 采用http协议作为rpc载体
 

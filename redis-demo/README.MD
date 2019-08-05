@@ -11,3 +11,31 @@
 ## golang redis 操作
 
 [学习链接](https://www.cnblogs.com/wdliu/p/9330278.html)
+
+## redis 操作命令
+
+* 启动 redis 服务
+```
+redis-server 
+```
+
+* 启动 redis-cli
+```
+redis-cli
+```
+
+* 当前所有的 keys
+```
+keys *
+```
+
+* 存储数据
+
+```
+set key0 value0
+```
+
+* 获取存储值
+```
+get key0
+```

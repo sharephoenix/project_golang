@@ -1,0 +1,8 @@
+id = "this is id"
+
+[owner]
+    name = "alexluan"
+    address = "shanghai"
+[clients]
+    name = "eric"
+    address = "anhui"

@@ -1,0 +1,43 @@
+# Docker 
+## nginx docker 相关命令
+
+* 查看当前运行的 docker
+```
+docker ps
+```
+* 当前安装的images
+```
+docker images
+```
+
+* 查看当前 continerid 的 唯一值
+1. practical_rosalind 为运行container 的 name；使用 docker ps 查看
+```
+docker inspect -f '{{.ID}}' practical_rosalind
+```
+* 把当前环境中的文件 copy 到 docker 中
+```
+docker cp /Users/apple/ClientsRemote/xp-telephone-book/dist/ 043b601c8aa29190e452880fee6c8192415c2bba9e43ba1934ab99c01435dfa5:/usr/share/nginx/html/
+```
+* 进入某个容器的控制台
+1. 043b601c8aa2 当前容器id
+```
+docker exec -it 043b601c8aa2 /bin/bash
+```
+* 运行一个 docker 容器
+1. 80 为容器内部的 端口号；8000 为当前服务器的端口号
+2. -d 表明在后端运行
+```
+docker run -p 8000:80 -d nginx
+```
+
+* 停止 docker 容器
+```
+docker stop 043b601c8aa2
+```
+
+* 移除 docker 容器
+```
+docker rm 043b601c8aa2
+```
+

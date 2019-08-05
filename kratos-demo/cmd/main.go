@@ -16,15 +16,8 @@ import (
 )
 
 func main() {
-	//rpc.RpcServer()
 	exeDratos()
 }
-
-/*启动 rpc 服务*/
-func toCaseRpcServer()  {
-	rpc.ToCaseServer()
-}
-
 /*运行 kratos demo*/
 func exeDratos() {
 	flag.Parse()

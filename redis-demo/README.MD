@@ -4,7 +4,7 @@
 [README](https://www.jianshu.com/p/bb7c19c5fc47)
 
 ## 配置
-
+[redis.conf](https://www.cnblogs.com/zxtceq/p/7676911.html)
 1. 配置文件 redis.conf
 2. save 10 1 -- 10s 中保存一次
 

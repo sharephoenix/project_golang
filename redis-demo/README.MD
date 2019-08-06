@@ -40,3 +40,8 @@ set key0 value0
 get key0
 ```
 
+## 三方
+
+```
+demo 使用 github.com/go-redis/redis 连接 set get 数据
+```

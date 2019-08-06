@@ -47,3 +47,6 @@ docker rm 043b601c8aa2
 ```
 docker run -p 8000:80 -v /Users/apple/Downloads/html:/usr/share/nginx/html -d nginx
 ```
+
+## Docker-Compose 集群
+[友情链接](https://blog.51cto.com/9291927/2310444)

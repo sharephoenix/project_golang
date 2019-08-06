@@ -1,7 +1,7 @@
 # Docker 
 
 ## nginx docker 相关命令
-
+[相关命令](https://www.jianshu.com/p/9fd2f77001a3)
 * 查看当前运行的 docker
 ```
 docker ps

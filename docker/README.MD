@@ -42,3 +42,8 @@ docker stop 043b601c8aa2
 docker rm 043b601c8aa2
 ```
 
+* 启动挂载宿主机文件夹
+1. -v 宿主机文件:镜像文件目录
+```
+docker run -p 8000:80 -v /Users/apple/Downloads/html:/usr/share/nginx/html -d nginx
+```

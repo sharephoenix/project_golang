@@ -1,68 +1,64 @@
 package main
 
 import (
-	"crypto/md5"
-	"crypto/rand"
-	"encoding/base64"
-	"encoding/hex"
 	"fmt"
-	"github.com/satori/go.uuid"
-	"io"
+	"project_golang/redis-demo/logic"
 )
 
-type User struct {
-	Name string	`json:"name"`
-	Address string	`json:"address"`
-	Sex int64	`json:"sex"`
-}
-
 func main() {
-	case2()
-}
-
-func case2() {
-
-	// Creating UUID Version 4
-	// panic on error
-	u1 := uuid.Must(uuid.NewV4())
-	fmt.Printf("UUIDv4: %s\n", u1)
-
-	// or error handling
-	u2, err := uuid.NewV4()
-	if err != nil {
-		fmt.Printf("Something went wrong: %s", err)
+	err := logic.Register("18817322819", "qwe123", "alexlaun",
+		"shanghai", 0)
+	if err == nil {
+		fmt.Println("注册成功")
 		return
 	}
-
-	token := GetMd5String(base64.URLEncoding.EncodeToString(u2.Bytes()))
-
-	fmt.Printf("UUIDv4: %v\n", token)
-
-	// Parsing UUID from string input
-	//u2, err := uuid.FromString("6ba7b810-9dad-11d1-80b4-00c04fd430c8")
-	//if err != nil {
-	//	fmt.Printf("Something went wrong: %s", err)
-	//	return
-	//}
-	//fmt.Printf("Successfully parsed: %s", u2)
+	fmt.Println("注册失败")
 }
 
-//生成32位md5字串
-func GetMd5String(s string) string {
-	h := md5.New()
-	h.Write([]byte(s))
-	return hex.EncodeToString(h.Sum(nil))
-}
 
-//生成Guid字串
-func UniqueId() string {
-	b := make([]byte, 48)
-
-	if _, err := io.ReadFull(rand.Reader, b); err != nil {
-		return ""
-	}
-	return GetMd5String(base64.URLEncoding.EncodeToString(b))
-}
+//func case2() {
+//
+//	// Creating UUID Version 4
+//	// panic on error
+//	u1 := uuid.Must(uuid.NewV4())
+//	fmt.Printf("UUIDv4: %s\n", u1)
+//
+//	// or error handling
+//	u2, err := uuid.NewV4()
+//	if err != nil {
+//		fmt.Printf("Something went wrong: %s", err)
+//		return
+//	}
+//
+//	token := GetMd5String(base64.URLEncoding.EncodeToString(u2.Bytes()))
+//
+//	fmt.Printf("UUIDv4: %v\n", token)
+//
+//	// Parsing UUID from string input
+//	//u2, err := uuid.FromString("6ba7b810-9dad-11d1-80b4-00c04fd430c8")
+//	//if err != nil {
+//	//	fmt.Printf("Something went wrong: %s", err)
+//	//	return
+//	//}
+//	//fmt.Printf("Successfully parsed: %s", u2)
+//}
+//
+////生成32位md5字串
+//func GetMd5String(s string) string {
+//	h := md5.New()
+//	h.Write([]byte(s))
+//	return hex.EncodeToString(h.Sum(nil))
+//}
+//
+////生成Guid字串
+//func UniqueId() string {
+//	b := make([]byte, 48)
+//
+//	if _, err := io.ReadFull(rand.Reader, b); err != nil {
+//		return ""
+//	}
+//	return GetMd5String(base64.URLEncoding.EncodeToString(b))
+//}
 
 /************************************/
 
@@ -92,12 +88,15 @@ func UniqueId() string {
 
 //func case0() {
 //	fmt.Println("this is redis")
-//	defer fmt.Println("THIS REDIS END")
+//
 //	client := redis.NewClient(&redis.Options{
 //		Addr:     "localhost:8001",
 //		Password: "", // no password set
 //		DB:       0,  // use default DB
 //	})
+//
+//	defer fmt.Println("THIS REDIS END")
+//	defer client.Close()
 //
 //	pong, err := client.Ping().Result()
 //	if err == nil {
@@ -106,6 +105,7 @@ func UniqueId() string {
 //		Get(client)
 //		return
 //	}
+//
 //	fmt.Println("链接失败：%v", err.Error())
 //}
 //

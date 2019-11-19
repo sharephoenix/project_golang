@@ -1,18 +1,6 @@
 package main
 
-import (
-	"fmt"
-	"project_golang/redis-demo/logic"
-)
-
 func main() {
-	err := logic.Register("18817322819", "qwe123", "alexlaun",
-		"shanghai", 0)
-	if err == nil {
-		fmt.Println("注册成功")
-		return
-	}
-	fmt.Println("注册失败")
 }
 
 

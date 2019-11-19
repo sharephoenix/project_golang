@@ -20,11 +20,11 @@ type Error struct {
 
 
 type User struct {
-	Account string `json:"account"`
-	password string `json:"password"`
-	Name string	`json:"name"`
-	Address string	`json:"address"`
-	Sex int64	`json:"sex"`
+	Account string 		`json:"account"`
+	Password string 	`json:"password"`
+	Name string			`json:"name"`
+	Address string		`json:"address"`
+	Sex int64			`json:"sex"`
 }
 
 /// 用户注册， 模块
@@ -41,7 +41,7 @@ func Register(account string, password string, name string, address string, sex 
 	if jsonerror != nil {
 		return &Error{jsonerror.Error()}
 	}
-	err := client.Set("18817322819", string(jsonBytes), 0).Err()
+	err := client.Set(account, string(jsonBytes), 0).Err()
 	if err == nil {
 		fmt.Printf("插入数据成功")
 		return nil
@@ -50,22 +50,19 @@ func Register(account string, password string, name string, address string, sex 
 }
 
 /// 检查用户是否注册
-func CheckRegister(account string) (*string, *Error) {
+func CheckRegister(account string) (string, bool) {
 	client := getRedis()
 	defer client.Close()
 
-	res, err := client.Get(account).Result()
-	if err != nil {
-		return nil, &Error{
-			err.Error(),
-		}
+	msg, err := client.Get(account).Result()
+	fmt.Printf("result:%v - %v\n", msg, account)
+	if err == nil {
+		return msg, false
 	}
-	return &res, &Error{
-		err.Error(),
-	}
+	return msg, true
 }
 
-func Login(account string, password string, token string) *User {
+func Login(account string, password string) *User {
 	client := getRedis()
 	defer client.Close()
 
@@ -73,7 +70,7 @@ func Login(account string, password string, token string) *User {
 	if err == nil {
 		var userr User
 		e := json.Unmarshal([]byte(val), &userr)
-		if e == nil {
+		if e == nil && userr.Password == password {
 			return &userr
 		}
 	}

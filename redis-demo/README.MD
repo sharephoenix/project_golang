@@ -50,3 +50,5 @@ demo 使用 github.com/go-redis/redis 连接 set get 数据
 ```
 "github.com/satori/go.uuid"
 ```
+
+## 服务开启只需要一个 redis

@@ -45,3 +45,8 @@ get key0
 ```
 demo 使用 github.com/go-redis/redis 连接 set get 数据
 ```
+
+## uuid
+```
+"github.com/satori/go.uuid"
+```

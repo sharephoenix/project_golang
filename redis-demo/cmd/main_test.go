@@ -2,12 +2,16 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"net/http"
 	"testing"
 )
 
 func Test_Main(t *testing.T) {
 	router := gin.Default()
 	router.GET("/ping", Ping)
+	router.GET("/ping302", func(c *gin.Context) {
+		c.Redirect(http.StatusMovedPermanently, "https://www.baidu.com")
+	})
 	v1 := router.Group("/v1")
 	{
 		v1.GET("/ping/:jump", PingV1)

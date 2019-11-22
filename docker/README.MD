@@ -2,9 +2,13 @@
 
 ## nginx docker 相关命令
 [相关命令](https://www.jianshu.com/p/9fd2f77001a3)
+* 拉取 image
+docker pull nginx
+docker pull redis
 * 查看当前运行的 docker
 ```
 docker ps
+docker ps -a
 ```
 * 当前安装的images
 ```
@@ -40,6 +44,7 @@ docker stop 043b601c8aa2
 * 移除 docker 容器
 ```
 docker rm 043b601c8aa2
+docker containId rm 043b601c8aa2
 ```
 
 * 启动挂载宿主机文件夹

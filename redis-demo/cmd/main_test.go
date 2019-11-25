@@ -1,10 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"testing"
 )
+
+/// CURL 请求
+//curl --header "A-BBb aaaa" -H "A-CcV:BBBBBBB" --data "account=alexluan&password=qwe123" localhost:8009/login-post
+//{"account":"alexluan","pwd":"qwe123"}
 
 func Test_Main(t *testing.T) {
 	router := gin.Default()
@@ -23,8 +28,9 @@ func Test_Main(t *testing.T) {
 		v2.GET("/ping", PingV2)
 	}
 
-	router.GET("login/", Login)
-	router.Run(":80")
+	router.GET("/login", Login)
+	router.POST("/login-post", LoginPost)
+	router.Run(":8009")
 }
 
 
@@ -38,6 +44,19 @@ func Login(c *gin.Context) {
 	//account := c.PostForm("account")
 
 }
+
+func LoginPost(c *gin.Context) {
+	account := c.PostForm("account")
+	pwd := c.PostForm("password")
+	for k,v :=range c.Request.Header {
+		fmt.Println(k,v)
+	}
+	c.JSON(200, gin.H{
+		"account": account,
+		"pwd": pwd,
+	})
+}
+
 /************/
 func Ping(c *gin.Context) {
 	c.JSON(200, gin.H{

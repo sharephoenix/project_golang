@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"sync"
 )
@@ -21,14 +20,99 @@ type User struct {
 	Address string `json:"address"`
 }
 
+//golang chan<- 和 <-chan，作为函数参数时
+//开始时看到这个实在没明白怎么回事
+//
+//测试了下才知道原来
+//
+//<-chan int  像这样的只能接收值
+//
+//chan<- int  像这样的只能发送值
+
+func sendchan(s chan<- int)  {
+	s <- 100
+}
+
+func receive(s <-chan int) {
+	a := <-s
+	fmt.Println( "a",a)
+}
+
 func main() {
 
-	var user User
-	user.Name = "alexluan"
-	user.Address = "shanghai"
-	jbyt, _ := json.Marshal(user)
+	myNum := []int{10, 20, 30, 40, 50}
+	// 创建新的切片，其长度为 2 个元素，容量为 4 个元素
+	newNum := myNum[1:3]
+	//myNum[1] = 99999
+	copy(myNum, newNum)
+	//newNum = append(newNum, 88)
+	//newNum = append(newNum, 80)
+	//newNum = append(newNum, 81)
+	//newNum = append(newNum, 82)
+	//newNum[2] = 9
+	fmt.Println(newNum, myNum)
 
-	fmt.Println(string(jbyt))
+	//async := sync.WaitGroup{}
+	//chans := make(chan int, 5)
+	//chans <- 100
+	//chans <- 3
+	//chans <- 5
+	//chans <- 6
+	//async.Add(1)
+	//go func() {
+	//	for {
+	//		v := <- chans
+	//		switch v {
+	//		case 3:
+	//			fmt.Println("3333333")
+	//			break
+	//		case 100:
+	//			fmt.Println("100-100")
+	//			break
+	//		case 5:
+	//			fmt.Println("5555-555")
+	//			break
+	//		default:
+	//			fmt.Println("nnnnnullll")
+	//			async.Done()
+	//			break
+	//		}
+	//	}
+	//}()
+	//async.Wait()
+
+	//var newMap map[string]string
+	//defer func() {
+	//
+	//
+	//	if ok := recover(); ok != nil {
+	//		fmt.Println("0000000k", ok)
+	//	}
+	//}()
+	//newMap = make(map[string]string)
+	//newMap["a"] = "aaaaa"
+	//newMap["b"] = "bbbbbb"
+	////delete(newMap, "a")
+	//for key, v := range newMap {
+	//	fmt.Println(key, v)
+	//}
+
+
+	//arr := []int{1,2,3,4,5,6,7}
+	//for key := range arr {
+	//	fmt.Println(key)
+	//}
+	//arr = append(arr, []int{8,9}...)
+	//fmt.Println(arr[0:])
+
+	//var user User
+	//user.Name = "alexluan"
+	//user.Address = "shanghai"
+	//jbyt, _ := json.Marshal(user)
+	//fmt.Println(string(jbyt))
+
+
+
 	//fmt.Println("start")
 	//defer fmt.Println("end")
 	//TestSyncMap()

@@ -1,10 +1,14 @@
 # Docker 
 
 ## nginx docker 相关命令
-
+[相关命令](https://www.jianshu.com/p/9fd2f77001a3)
+* 拉取 image
+docker pull nginx
+docker pull redis
 * 查看当前运行的 docker
 ```
 docker ps
+docker ps -a
 ```
 * 当前安装的images
 ```
@@ -40,5 +44,17 @@ docker stop 043b601c8aa2
 * 移除 docker 容器
 ```
 docker rm 043b601c8aa2
+docker containId rm 043b601c8aa2
 ```
 
+* 启动挂载宿主机文件夹
+1. -v 宿主机文件:镜像文件目录
+```
+docker run -p 8000:80 -v /Users/apple/Downloads/html:/usr/share/nginx/html -d nginx
+```
+
+## Docker-Compose 集群
+[友情链接](https://blog.51cto.com/9291927/2310444)
+
+## Docker 部署 golang
+[友情链接](https://www.jianshu.com/p/5939dcf5c96e)

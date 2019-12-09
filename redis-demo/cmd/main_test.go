@@ -41,6 +41,11 @@ func Login(c *gin.Context) {
 		"account": account,
 		"pwd": pwd,
 	})
+
+	c.JSON(200, gin.H{
+		"account": account,
+		"pwd": pwd,
+	})
 	//account := c.PostForm("account")
 
 }
@@ -70,6 +75,7 @@ func PingV1(c *gin.Context) {
 	mm["aa"] = "bbbb"
 	mm["message"] = "pong"
 	mm["jump"] = jump
+	c.JSON(200, mm)
 	c.JSON(200, mm)
 }
 

@@ -58,3 +58,6 @@ docker run -p 8000:80 -v /Users/apple/Downloads/html:/usr/share/nginx/html -d ng
 
 ## Docker 部署 golang
 [友情链接](https://www.jianshu.com/p/5939dcf5c96e)
+
+## 启动 mysql
+docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=qwe123 -d mysql

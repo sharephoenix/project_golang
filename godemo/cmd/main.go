@@ -13,6 +13,8 @@ type LessBase struct {
 	Age string `json:"age"`
 }
 
+
+
 type User struct {
 	UserBase
 	LessBase

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23633c8f-421a-45cf-a2e6-59047bb1703f" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/.idea/project_golang.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/common/baseresponse/baseresponse.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/services/user/cmd/api/config/config.go" afterDir="false" />
@@ -110,6 +111,33 @@
       <change beforePath="$PROJECT_DIR$/toml/cmd/cmd.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/toml/configs/server.toml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/vpn/README.MD" beforeDir="false" />
+=======
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/godemo/writerio/writerio.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/godemo/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/godemo/cmd/main.go" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customtag/customtag.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/godemo/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/godemo/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/godemo/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/godemo/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/godemo/README.MD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/godemo/cmd/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/godemo/maproutine/MapRoutine.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/godemo/maproutine/syncMapRoutine.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/socket-demo/client/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/socket-demo/server/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/project_golang.iml" beforeDir="false" afterPath="$PROJECT_DIR$/godemo/.idea/godemo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kratos-demo/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/kratos-demo/go.sum" afterDir="false" />
+>>>>>>> bc267f08d86a848c184125eb190fac83b84986fa
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -146,20 +174,66 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/user/model/usermodel.go">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="210">
               <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+=======
+<<<<<<< HEAD
+            <state relative-caret-position="180">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
+=======
+            <state relative-caret-position="340">
+              <caret line="58" column="1" selection-start-line="58" selection-start-column="1" selection-end-line="58" selection-end-column="1" />
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
               <folding>
                 <element signature="e#15#101#0" expanded="true" />
+              </folding>
+>>>>>>> bc267f08d86a848c184125eb190fac83b84986fa
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/baseresponse/baseresponse.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+=======
+      <file pinned="false" current-in-tab="true">
+<<<<<<< HEAD
+        <entry file="file://$PROJECT_DIR$/godemo/writerio/writerio.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+              <folding>
+                <element signature="e#14#51#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/baseresponse/baseresponse.go">
+        <entry file="file:///usr/local/go/src/encoding/json/encode.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+            <state relative-caret-position="215">
+              <caret line="302" column="13" selection-start-line="302" selection-start-column="13" selection-end-line="302" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/customtag/customtag.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="585">
+              <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
+=======
+        <entry file="file://$PROJECT_DIR$/grpcDemo/client.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="212">
+              <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+>>>>>>> bc267f08d86a848c184125eb190fac83b84986fa
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
               <folding>
                 <element signature="e#22#77#0" expanded="true" />
               </folding>
@@ -196,12 +270,19 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+<<<<<<< HEAD
       <find>loader</find>
       <find>config</find>
       <find>etc/config</find>
     </findStrings>
   </component>
   <component name="GOROOT" path="/usr/local/Cellar/go/1.12.6/libexec" />
+=======
+      <find>&lt;&lt;&lt;&lt;</find>
+    </findStrings>
+  </component>
+  <component name="GOROOT" path="/usr/local/go" />
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -220,6 +301,7 @@
         <option value="$PROJECT_DIR$/socket-demo/server/server.go" />
         <option value="$PROJECT_DIR$/socket-demo/server/main.go" />
         <option value="$PROJECT_DIR$/socket-demo/client/main.go" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/grpcDemo/client.go" />
         <option value="$PROJECT_DIR$/godemo/cmd/main.go" />
         <option value="$PROJECT_DIR$/customtag/customtag.go" />
@@ -239,6 +321,17 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+=======
+        <option value="$PROJECT_DIR$/customtag/customtag.go" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/example.go" />
+        <option value="$PROJECT_DIR$/godemo/cmd/main.go" />
+        <option value="$PROJECT_DIR$/godemo/writerio/writerio.go" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="x" value="87" />
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="841" />
@@ -327,8 +420,50 @@
             </path>
             <path>
               <item name="project_golang" type="b2602c69:ProjectViewProjectNode" />
+<<<<<<< HEAD
+              <item name="project_golang" type="462c0819:PsiDirectoryNode" />
+              <item name="godemo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="project_golang" type="b2602c69:ProjectViewProjectNode" />
+              <item name="project_golang" type="462c0819:PsiDirectoryNode" />
+              <item name="godemo" type="462c0819:PsiDirectoryNode" />
+              <item name="writerio" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="project_golang" type="b2602c69:ProjectViewProjectNode" />
+              <item name="project_golang" type="462c0819:PsiDirectoryNode" />
+              <item name="kratos-demo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="project_golang" type="b2602c69:ProjectViewProjectNode" />
+              <item name="project_golang" type="462c0819:PsiDirectoryNode" />
+              <item name="rgp-demo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="project_golang" type="b2602c69:ProjectViewProjectNode" />
+              <item name="project_golang" type="462c0819:PsiDirectoryNode" />
+              <item name="socket-demo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="project_golang" type="b2602c69:ProjectViewProjectNode" />
+              <item name="project_golang" type="462c0819:PsiDirectoryNode" />
+              <item name="socket-demo" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="project_golang" type="b2602c69:ProjectViewProjectNode" />
+              <item name="project_golang" type="462c0819:PsiDirectoryNode" />
+              <item name="socket-demo" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+=======
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+<<<<<<< HEAD
               <item name="GOPATH &lt;project_golang&gt;" type="20ee2d1f:SyntheticLibraryElementNode" />
+=======
+              <item name="Go SDK 1.12.6" type="20ee2d1f:SyntheticLibraryElementNode" />
+>>>>>>> bc267f08d86a848c184125eb190fac83b84986fa
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
             </path>
           </expand>
           <select />
@@ -368,7 +503,11 @@
       </list>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="Go Build.go build user.go">
+=======
+  <component name="RunManager" selected="Go Build.go build writerio.go">
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
     <configuration name="go build customtag.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="project_golang" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -378,20 +517,28 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+<<<<<<< HEAD
     <configuration name="go build logls.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="project_golang" />
       <working_directory value="$PROJECT_DIR$/" />
       <kind value="FILE" />
       <filePath value="$PROJECT_DIR$/logls/logls.go" />
-      <package value="project_golang" />
-      <directory value="$PROJECT_DIR$/" />
-      <method v="2" />
-    </configuration>
+=======
     <configuration name="go build main.go (2)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="project_golang" />
       <working_directory value="$PROJECT_DIR$/" />
       <kind value="FILE" />
       <filePath value="$PROJECT_DIR$/socket-demo/server/main.go" />
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
+      <package value="project_golang" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build main.go (3)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="project_golang" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/socket-demo/client/main.go" />
       <package value="project_golang" />
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
@@ -405,11 +552,19 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+<<<<<<< HEAD
     <configuration name="go build user.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+=======
+    <configuration name="go build writerio.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
       <module name="project_golang" />
       <working_directory value="$PROJECT_DIR$/services/user/cmd/api" />
       <kind value="FILE" />
+<<<<<<< HEAD
       <filePath value="$PROJECT_DIR$/services/user/cmd/api/user.go" />
+=======
+      <filePath value="$PROJECT_DIR$/godemo/writerio/writerio.go" />
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
       <package value="project_golang" />
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
@@ -423,11 +578,20 @@
     </list>
     <recent_temporary>
       <list>
+<<<<<<< HEAD
         <item itemvalue="Go Build.go build user.go" />
         <item itemvalue="Go Build.go build logls.go" />
         <item itemvalue="Go Build.go build customtag.go" />
+=======
+        <item itemvalue="Go Build.go build writerio.go" />
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
         <item itemvalue="Go Build.go build main.go (4)" />
+        <item itemvalue="Go Build.go build customtag.go" />
         <item itemvalue="Go Build.go build main.go (2)" />
+<<<<<<< HEAD
+=======
+        <item itemvalue="Go Build.go build main.go (3)" />
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
       </list>
     </recent_temporary>
   </component>
@@ -441,8 +605,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
     <editor active="true" />
+=======
+<<<<<<< HEAD
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+=======
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+>>>>>>> bc267f08d86a848c184125eb190fac83b84986fa
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.34120172" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -457,8 +629,13 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.386747" />
+=======
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49919224" weight="0.27534246" />
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" x="0" y="0" width="270" height="600" id="Documentation" order="12" sideWeight="0.50080776" side_tool="true" weight="0.27534246" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -556,6 +733,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/grpcDemo/cmd.go" />
     <entry file="file://$PROJECT_DIR$/grpcDemo/test.proto" />
     <entry file="file://$PROJECT_DIR$/grpcDemo/Readme.md" />
@@ -563,6 +741,18 @@
     <entry file="file://$PROJECT_DIR$/services/user/api.go" />
     <entry file="file://$PROJECT_DIR$/kratos-demo/cmd/main.go" />
     <entry file="file://$PROJECT_DIR$/common/conf/properties.go">
+=======
+<<<<<<< HEAD
+    <entry file="file:///usr/local/go/src/reflect/type.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="1136" column="21" selection-start-line="1136" selection-start-column="21" selection-end-line="1136" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+=======
+    <entry file="file://$PROJECT_DIR$/godemo/cmd/main.go">
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
@@ -572,6 +762,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/common/conf/config.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="298">
@@ -668,8 +859,50 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="434">
           <caret line="43" column="39" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
+=======
+    <entry file="file:///usr/local/go/src/reflect/type.go" />
+>>>>>>> bc267f08d86a848c184125eb190fac83b84986fa
+    <entry file="file://$PROJECT_DIR$/customtag/customtag.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="585">
+          <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
+>>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b
           <folding>
             <element signature="e#14#222#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/encoding/json/encode.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="302" column="13" selection-start-line="302" selection-start-column="13" selection-end-line="302" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/example.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+          <folding>
+            <element signature="e#14#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/godemo/cmd/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/godemo/writerio/writerio.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+          <folding>
+            <element signature="e#14#51#0" expanded="true" />
           </folding>
         </state>
       </provider>

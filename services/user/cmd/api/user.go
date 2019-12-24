@@ -1,0 +1,46 @@
+package main
+
+import (
+	"encoding/json"
+	"flag"
+	"fmt"
+	"github.com/gin-gonic/gin"
+	"os"
+	"project_golang/services/user/cmd/api/config"
+	"project_golang/services/user/handler"
+	logic2 "project_golang/services/user/logic"
+	"project_golang/services/user/model"
+)
+
+var configFile = flag.String("f", "etc/config.json", "the config file")
+
+func main() {
+	//flag.Parse()
+	//var c config.Config
+	//conf.MustLoad(*configFile, &c)
+
+	// 配置初始化
+	file, _ := os.Open("etc/config.json")
+	defer file.Close()
+	decoder := json.NewDecoder(file)
+	conf := config.Config{}
+	err := decoder.Decode(&conf)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	// 业务初始化
+	userModel := model.UserModel{}
+
+	logic := logic2.UserLogic{
+		userModel,
+	}
+
+	// 路由
+	userHandler := handler.UserHandler{
+		logic,
+	}
+	r := gin.Default()
+	r.GET("/user", userHandler.GetUser)
+	r.Run(conf.Port)
+}

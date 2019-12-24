@@ -7,6 +7,7 @@ import (
 )
 
 const tagName = "validate"
+// 自定义标签 customtag
 
 type User struct {
 	Id int `validate:"-"`
@@ -48,6 +49,4 @@ func main() {
 
 		fmt.Printf("*** %d. %v(%v), tag:'%v', tagJson:'%v' 值：%v\n", i+1, field.Name, field.Type.Name(), tag, tag0, m[field.Name])
 	}
-
-
 }

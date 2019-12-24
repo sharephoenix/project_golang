@@ -19,6 +19,7 @@ type User struct {
 	LessBase
 	Name string `json:"name"`
 	Address string `json:"address"`
+	Flag bool `json:"flag,omitempty"`
 }
 
 func main() {
@@ -26,6 +27,7 @@ func main() {
 	var user User
 	user.Name = "alexluan"
 	user.Address = "shanghai"
+	user.Flag = false
 	jbyt, _ := json.Marshal(user)
 
 	fmt.Println(string(jbyt))

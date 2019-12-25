@@ -15,6 +15,17 @@ func (ll *UserLogic)GetUser(mobile string) (interface{}, error) {
 	return user, err
 }
 
+func (ll *UserLogic)SendCode(mobile string) error {
+	err := ll.UserModel.SendCode(mobile)
+	return err
+}
+
+
+func (ll *UserLogic)GetCode(mobile string) (*string, error) {
+	code, err := ll.UserModel.GetCode(mobile)
+	return code, err
+}
+
 func (ll *UserLogic)Register(mobile, version string) (interface{}, error) {
 	user, err := ll.UserModel.Register(mobile)
 

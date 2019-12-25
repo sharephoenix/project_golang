@@ -50,8 +50,8 @@ func ConvertGinResonse(data interface{}, err error) map[string]interface{} {
 		resp.Data = nil
 		resp.Msg = err.Error()
 	} else if data == nil {
-		resp.Code = -2
-		resp.Msg = "返回值为空"
+		resp.Code = 0
+		resp.Msg = "success"
 	}
 	bty, _ := json.Marshal(resp)
 	var m gin.H

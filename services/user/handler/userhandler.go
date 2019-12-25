@@ -22,6 +22,22 @@ func (ll *UserHandler)GetUser(context *gin.Context) {
 	context.JSON(200, resp)
 }
 
+/*发送验证码*/
+func (ll *UserHandler)SendCode(context *gin.Context) {
+	mobile := context.Param("mobile")
+	err := ll.Logic.SendCode(mobile)
+	resp := baseresponse.ConvertGinResonse(nil, err)
+	context.JSON(200, resp)
+}
+
+/*获取验证码*/
+func (ll *UserHandler)GetCode(context *gin.Context) {
+	mobile := context.Param("mobile")
+	res, err := ll.Logic.GetCode(mobile)
+	resp := baseresponse.ConvertGinResonse(res, err)
+	context.JSON(200, resp)
+}
+
 func (ll *UserHandler)Register(context *gin.Context) {
 	var reqUser ReqUser
 	baserequest.GetBody(context, &reqUser)

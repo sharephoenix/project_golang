@@ -55,6 +55,8 @@ func main() {
 	}
 	r := gin.Default()
 	r.GET("/user/:mobile", userHandler.GetUser)
+	r.GET("/sendCode/:mobile", userHandler.SendCode)
+	r.GET("/getCode/:mobile", userHandler.GetCode)
 	r.POST("/register",userHandler.Register)
 
 	r.Run(conf.Port)

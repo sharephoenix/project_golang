@@ -20,7 +20,7 @@ func (mm *UserModel)FindUser(mobile string) (*typeuser.User, error) {
 	//	"shanghai",
 	//	"http://xxx.jpg",
 	//}
-	val, err := mm.Biz.Get("users").Result()
+	val, err := mm.Biz.Get(mobile).Result()
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +42,7 @@ func (mm *UserModel)Register(mobile string) (*typeuser.User, error) {
 
 	bty, _ := json.Marshal(user)
 
-	err := mm.Biz.Set("users", string(bty), 10*time.Second).Err()
+	err := mm.Biz.Set(mobile, string(bty), 10*time.Second).Err()
 	if err != nil {
 		return nil, err
 	}

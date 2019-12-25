@@ -49,8 +49,7 @@ func ConvertGinResonse(data interface{}, err error) map[string]interface{} {
 		resp.Code = -1
 		resp.Data = nil
 		resp.Msg = err.Error()
-	}
-	if data == nil {
+	} else if data == nil {
 		resp.Code = -2
 		resp.Msg = "返回值为空"
 	}

@@ -1,16 +1,19 @@
 package config
 
 type Config struct {
-	Name string //`json:"name"`
-	Host string //`json:"host"`
-	Port string //`json:"port"`
-	Redis Redis //`json:"redis"`
+	Name string
+	Host string
+	Port string
+	Redis Redis
+	Auth Auth
 }
 
 type Redis struct {
-	Addr string //`json:"addr"`
-	Password string //`json:"password"`
-	DB string //`json:"DB"`
+	Addr string
+	Password string
+	DB string
 }
 
-// redis mongodb
+type Auth struct {
+	AccessSecret string
+}

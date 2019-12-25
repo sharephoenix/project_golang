@@ -25,7 +25,15 @@ func (ll *UserHandler)GetUser(context *gin.Context) {
 func (ll *UserHandler)Register(context *gin.Context) {
 	var reqUser ReqUser
 	baserequest.GetBody(context, &reqUser)
-	res, err := ll.Logic.Register(reqUser.Mobile)
-	resp := baseresponse.ConvertGinResonse(res, err)
-	context.JSON(200, resp)
+
+	version := context.Request.Header["Version"]
+	if len(version) < 1 {
+		resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"has no version in headers"})
+		context.JSON(200, resp)
+		return
+	} else {
+		res, err := ll.Logic.Register(reqUser.Mobile, version[0])
+		resp := baseresponse.ConvertGinResonse(res, err)
+		context.JSON(200, resp)
+	}
 }

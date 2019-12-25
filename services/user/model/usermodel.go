@@ -37,6 +37,7 @@ func (mm *UserModel)Register(mobile string) (*typeuser.User, error) {
 		12,
 		"shanghai",
 		"http://xxx.jpg",
+		nil,
 	}
 
 	bty, _ := json.Marshal(user)

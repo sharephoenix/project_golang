@@ -10,6 +10,10 @@ type User struct {
 	AccessToken interface{} `json:"accessToken,omitempty"`
 }
 
+type MobileCode struct {
+	Code string `json:"code"`
+}
+
 const (
 	JwtUserField = "usr"
 	JwtVersionField = "ver"

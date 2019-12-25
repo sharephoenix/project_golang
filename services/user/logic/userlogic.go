@@ -21,9 +21,9 @@ func (ll *UserLogic)SendCode(mobile string) error {
 }
 
 
-func (ll *UserLogic)GetCode(mobile string) (*string, error) {
+func (ll *UserLogic)GetCode(mobile string) (typeuser.MobileCode, error) {
 	code, err := ll.UserModel.GetCode(mobile)
-	return code, err
+	return typeuser.MobileCode{*code}, err
 }
 
 func (ll *UserLogic)Register(mobile, version string) (interface{}, error) {

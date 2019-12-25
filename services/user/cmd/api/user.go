@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis"
 	"os"
 	"project_golang/services/user/cmd/api/config"
 	"project_golang/services/user/handler"
@@ -29,8 +30,20 @@ func main() {
 		fmt.Println("Error:", err)
 	}
 
+
+	biz := redis.NewClient(&redis.Options{
+		Addr:     conf.Redis.Addr,
+		Password: "", // no password set
+		DB:       0,  // use default DB
+	})
+
+	pong, err := biz.Ping().Result()
+	fmt.Println(pong, err)
+
 	// 业务初始化
-	userModel := model.UserModel{}
+	userModel := model.UserModel{
+		biz,
+	}
 
 	logic := logic2.UserLogic{
 		userModel,
@@ -41,6 +54,7 @@ func main() {
 		logic,
 	}
 	r := gin.Default()
-	r.GET("/user", userHandler.GetUser)
+	r.GET("/user/:mobile", userHandler.GetUser)
+	r.POST("/register",userHandler.Register)
 	r.Run(conf.Port)
 }

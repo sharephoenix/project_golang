@@ -40,7 +40,7 @@ func (mm *UserModel)Register(mobile string) (*typeuser.User, error) {
 
 	bty, _ := json.Marshal(user)
 
-	err := mm.Biz.Set(mobile, string(bty), 10*time.Second).Err()
+	err := mm.Biz.Set(mobile, string(bty), 3600 * 24 *time.Second).Err()
 	if err != nil {
 		return nil, err
 	}

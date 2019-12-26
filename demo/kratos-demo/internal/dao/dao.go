@@ -55,7 +55,7 @@ func New() (Dao) {
 		// mysql
 		db: sql.NewMySQL(dc.Demo),
 		// redis
-		redis:       redis.NewPool(rc.Demo),
+		       redis.NewPool(rc.Demo),
 		redisExpire: int32(time.Duration(rc.DemoExpire) / time.Second),
 		// memcache
 		mc:       memcache.New(mc.Demo),

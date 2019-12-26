@@ -5,6 +5,7 @@ import (
 	"project_golang/common/baserequest"
 	"project_golang/common/baseresponse"
 	"project_golang/services/user/logic"
+	"project_golang/services/user/typeuser"
 )
 
 type UserHandler struct {
@@ -17,28 +18,39 @@ type ReqUser struct {
 
 /*获取用户信息*/
 func (ll *UserHandler)GetUser(context *gin.Context) {
-	mobile := context.Param("mobile")
-	res, err := ll.Logic.GetUser(mobile)
+	mobile := context.Request.Header["Token"]
+	if len(mobile) <= 0 {
+		resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"lost token"})
+		context.JSON(200, resp)
+	}
+	res, err := ll.Logic.GetUser(mobile[0])
 	resp := baseresponse.ConvertGinResonse(res, err)
 	context.JSON(200, resp)
 }
 
 /*注册用户信息*/
-func (ll *UserHandler)Register(context *gin.Context) {
-	var reqUser ReqUser
-	baserequest.GetBody(context, &reqUser)
+func (ll *UserHandler)Register(accessSecret string) func (*gin.Context) {
+	return func(context *gin.Context) {
+		version := context.Request.Header["Version"]
 
-	version := context.Request.Header["Version"]
-	authorization := context.Request.Header["Authorization"]
-	if len(version) < 1 || len(authorization) <= 0 {
-		resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"has no version in headers"})
-		context.JSON(200, resp)
-		return
-	} else {
-		res, err := ll.Logic.Register(reqUser.Mobile, version[0])
-		res.AccessToken = authorization[0]
-		resp := baseresponse.ConvertGinResonse(res, err)
-		context.JSON(200, resp)
+		var reqUser ReqUser
+		baserequest.GetBody(context, &reqUser)
+
+		accessToken, err := logic.GenTokenTest(accessSecret, map[string]interface{}{typeuser.JwtUserField: reqUser.Mobile, typeuser.JwtVersionField: "v1.0.1"},  100000000000000000)
+		if err == nil {
+			context.Request.Header["Authorization"] = []string{accessToken}
+		}
+
+		if len(version) < 1 {
+			resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"has no version in headers"})
+			context.JSON(200, resp)
+			return
+		} else {
+			res, err := ll.Logic.Register(reqUser.Mobile, version[0])
+			res.AccessToken = accessToken
+			resp := baseresponse.ConvertGinResonse(res, err)
+			context.JSON(200, resp)
+		}
 	}
 }
 

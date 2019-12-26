@@ -7,13 +7,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
 	"os"
-	"project_golang/common/baserequest"
 	"project_golang/common/baseresponse"
 	"project_golang/services/user/cmd/api/config"
 	"project_golang/services/user/handler"
 	logic2 "project_golang/services/user/logic"
 	"project_golang/services/user/model"
-	"project_golang/services/user/typeuser"
 )
 
 var configFile = flag.String("f", "etc/config.json", "the config file")
@@ -78,7 +76,8 @@ func main() {
 	})
 
 	/*局部中间件*/
-	r.GET("/user/:mobile", func(context *gin.Context) {
+	// 获取当前用户登录信息
+	r.GET("/logininfo", func(context *gin.Context) {
 		jwtToken := context.Request.Header["Authorization"]
 		token := context.Request.Header["Token"]
 		if jwtToken == nil || len(jwtToken) <= 0{
@@ -100,8 +99,7 @@ func main() {
 			context.Abort()
 			return
 		}
-		mobile := context.Param("mobile")
-		if jwt["usr"] != mobile {
+		if jwt["usr"] != token[0] {
 			resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"Authorization 失效"})
 			context.JSON(200, resp)
 			context.Abort()
@@ -111,18 +109,8 @@ func main() {
 	r.GET("/sendCode/:mobile", userHandler.SendCode)
 	r.GET("/getCode/:mobile", userHandler.GetCode)
 	r.POST("/register", func(context *gin.Context) {
-		var reqUser handler.ReqUser
-		baserequest.GetBody(context, &reqUser)
-
-		accessToken, err := logic2.GenTokenTest(conf.Auth.AccessSecret, map[string]interface{}{typeuser.JwtUserField: reqUser.Mobile, typeuser.JwtVersionField: "v1.0.1"},  100000000000000000)
-		if err == nil {
-			context.Request.Header["Authorization"] = []string{accessToken}
-			context.Next()
-			return
-		}
-
-		context.Abort()
-	},userHandler.Register)
+		context.Next()
+	},userHandler.Register(conf.Auth.AccessSecret))
 
 	r.Run(conf.Port)
 }

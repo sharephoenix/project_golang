@@ -23,8 +23,9 @@ import (
 /// 获取 jwt token
 func GenTokenTest(secretKey string, payloads map[string]interface{}, seconds int64) (string, error) {
 	now := time.Now().Unix()
+	exp := time.Now().Add(time.Second * 10).Unix()
 	claims := make(jwt.MapClaims)
-	claims["exp"] = now * 60 * 2
+	claims["exp"] = exp
 	claims["iat"] = now
 	claims["nbf"] = now
 	for k, v := range payloads {

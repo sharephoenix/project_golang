@@ -23,7 +23,7 @@ import (
 /// 获取 jwt token
 func GenTokenTest(secretKey string, payloads map[string]interface{}, seconds int64) (string, error) {
 	now := time.Now().Unix()
-	exp := time.Now().Add(time.Second * 10).Unix()
+	exp := time.Now().Add(time.Second * 3600 * 24).Unix()
 	claims := make(jwt.MapClaims)
 	claims["exp"] = exp
 	claims["iat"] = now

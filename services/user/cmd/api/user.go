@@ -93,9 +93,9 @@ func main() {
 			context.Abort()
 			return
 		}
-		jwt := logic2.BackGenToken(jwtToken[0], conf.Auth.AccessSecret)
-		if jwt == nil {
-			resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"请求失效"})
+		jwt, err := logic2.BackGenToken(jwtToken[0], conf.Auth.AccessSecret)
+		if err != nil {
+			resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{err.Error()})
 			context.JSON(200, resp)
 			context.Abort()
 			return
@@ -115,8 +115,6 @@ func main() {
 		baserequest.GetBody(context, &reqUser)
 
 		accessToken, err := logic2.GenTokenTest(conf.Auth.AccessSecret, map[string]interface{}{typeuser.JwtUserField: reqUser.Mobile, typeuser.JwtVersionField: "v1.0.1"},  100000000000000000)
-		jwt := logic2.BackGenToken(accessToken, conf.Auth.AccessSecret)
-		fmt.Println(jwt)
 		if err == nil {
 			context.Request.Header["Authorization"] = []string{accessToken}
 			context.Next()

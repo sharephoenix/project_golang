@@ -111,7 +111,7 @@ func main() {
 	r.POST("/register", func(context *gin.Context) {
 		context.Next()
 	},userHandler.Register(conf.Auth.AccessSecret))
-
+	r.POST("/login", userHandler.Login(conf.Auth.AccessSecret))
 	r.Run(conf.Port)
 }
 

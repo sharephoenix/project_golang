@@ -16,6 +16,11 @@ type ReqUser struct {
 	Mobile string `json:"mobile"`//`form:"mobile" json:"mobile" xml:"mobile" binding:"mobile"`
 }
 
+type LoginReq struct {
+	Mobile string `json:"mobile"`
+	Code string `json:"code"`
+}
+
 /*获取用户信息*/
 func (ll *UserHandler)GetUser(context *gin.Context) {
 	mobile := context.Request.Header["Token"]
@@ -68,4 +73,15 @@ func (ll *UserHandler)GetCode(context *gin.Context) {
 	res, err := ll.Logic.GetCode(mobile)
 	resp := baseresponse.ConvertGinResonse(res, err)
 	context.JSON(200, resp)
+}
+
+/*登录*/
+func (ll *UserHandler)Login(secretKey string) func(ctx *gin.Context) {
+	return func(context *gin.Context) {
+			var loginReq LoginReq
+			baserequest.GetBody(context, &loginReq)
+			res, err := ll.Logic.Login(secretKey, loginReq.Mobile, loginReq.Code)
+			resp := baseresponse.ConvertGinResonse(res, err)
+			context.JSON(200, resp)
+		}
 }

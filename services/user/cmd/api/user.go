@@ -7,10 +7,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
 	"os"
+	"project_golang/common/baserequest"
+	"project_golang/common/baseresponse"
 	"project_golang/services/user/cmd/api/config"
 	"project_golang/services/user/handler"
 	logic2 "project_golang/services/user/logic"
 	"project_golang/services/user/model"
+	"project_golang/services/user/typeuser"
 )
 
 var configFile = flag.String("f", "etc/config.json", "the config file")
@@ -54,12 +57,78 @@ func main() {
 		logic,
 	}
 	r := gin.Default()
-	r.GET("/user/:mobile", userHandler.GetUser)
+
+	// 全局中间件 middleware-校验 Authorization token 是否合法
+	r.Use(func(context *gin.Context) {
+
+		fmt.Println("Im a dummy!11111111", conf)
+
+		// Pass on to the next-in-chain
+
+		context.Next()
+
+	}, func (context *gin.Context) {
+
+		fmt.Println("Im a dummy!22222222", conf)
+
+		// Pass on to the next-in-chain
+
+		context.Next()
+
+	})
+
+	/*局部中间件*/
+	r.GET("/user/:mobile", func(context *gin.Context) {
+		jwtToken := context.Request.Header["Authorization"]
+		token := context.Request.Header["Token"]
+		if jwtToken == nil || len(jwtToken) <= 0{
+			resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"头部缺少 Authorization"})
+			context.JSON(200, resp)
+			context.Abort()
+			return
+		}
+		if len(token) <= 0 {
+			resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"头部缺少 token"})
+			context.JSON(200, resp)
+			context.Abort()
+			return
+		}
+		jwt := logic2.BackGenToken(jwtToken[0], conf.Auth.AccessSecret)
+		if jwt == nil {
+			resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"请求失效"})
+			context.JSON(200, resp)
+			context.Abort()
+			return
+		}
+		mobile := context.Param("mobile")
+		if jwt["usr"] != mobile {
+			resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"Authorization 失效"})
+			context.JSON(200, resp)
+			context.Abort()
+		}
+		context.Next()
+	} ,userHandler.GetUser)
 	r.GET("/sendCode/:mobile", userHandler.SendCode)
 	r.GET("/getCode/:mobile", userHandler.GetCode)
-	r.POST("/register",userHandler.Register)
+	r.POST("/register", func(context *gin.Context) {
+		var reqUser handler.ReqUser
+		baserequest.GetBody(context, &reqUser)
+
+		accessToken, err := logic2.GenTokenTest(conf.Auth.AccessSecret, map[string]interface{}{typeuser.JwtUserField: reqUser.Mobile, typeuser.JwtVersionField: "v1.0.1"},  100000000000000000)
+		jwt := logic2.BackGenToken(accessToken, conf.Auth.AccessSecret)
+		fmt.Println(jwt)
+		if err == nil {
+			context.Request.Header["Authorization"] = []string{accessToken}
+			context.Next()
+			return
+		}
+
+		context.Abort()
+	},userHandler.Register)
 
 	r.Run(conf.Port)
 }
+
+
 
 

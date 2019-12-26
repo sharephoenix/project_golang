@@ -6,12 +6,27 @@ import (
 	"time"
 )
 
+//iss: 签发者
+//
+//sub: 面向的用户
+//
+//aud: 接收方
+//
+//exp: 过期时间
+//
+//nbf: 生效时间
+//
+//iat: 签发时间
+//
+//jti: 唯一身份标识
+
 /// 获取 jwt token
 func GenTokenTest(secretKey string, payloads map[string]interface{}, seconds int64) (string, error) {
 	now := time.Now().Unix()
 	claims := make(jwt.MapClaims)
-	claims["exp"] = now + seconds
+	claims["exp"] = now * 60 * 2
 	claims["iat"] = now
+	claims["nbf"] = now
 	for k, v := range payloads {
 		claims[k] = v
 	}

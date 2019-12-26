@@ -2,6 +2,7 @@ package model
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/go-redis/redis"
 	"math/rand"
 	"project_golang/common/baseresponse"
@@ -13,6 +14,8 @@ import (
 type UserModel struct {
 	Biz *redis.Client
 }
+
+const MoBileCode = "MobileCode#%v" // 手机验证码可以
 
 func (mm *UserModel)FindUser(mobile string) (*typeuser.User, error) {
 	val, err := mm.Biz.Get(mobile).Result()
@@ -55,7 +58,7 @@ func (mm *UserModel)SendCode(mobile string) error {
 	if code == "" {
 		return &baseresponse.LysError{"生成验证码失败"}
 	}
-	err := mm.Biz.Set(mobile, code, 60*time.Second).Err()
+	err := mm.Biz.Set(fmt.Sprintf(MoBileCode, mobile), code, 60*time.Second).Err()
 	if err != nil {
 		return err
 	}
@@ -64,7 +67,7 @@ func (mm *UserModel)SendCode(mobile string) error {
 
 
 func (mm *UserModel)GetCode(mobile string) (*string, error) {
-	val, err := mm.Biz.Get(mobile).Result()
+	val, err := mm.Biz.Get(fmt.Sprintf(MoBileCode, mobile)).Result()
 	if err != nil {
 		return nil, err
 	}

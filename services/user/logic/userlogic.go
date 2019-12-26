@@ -21,17 +21,15 @@ func (ll *UserLogic)SendCode(mobile string) error {
 }
 
 
-func (ll *UserLogic)GetCode(mobile string) (typeuser.MobileCode, error) {
+func (ll *UserLogic)GetCode(mobile string) (*typeuser.MobileCode, error) {
 	code, err := ll.UserModel.GetCode(mobile)
-	return typeuser.MobileCode{*code}, err
+	if err != nil {
+		return nil, err
+	}
+	return &typeuser.MobileCode{*code}, err
 }
 
-func (ll *UserLogic)Register(mobile, version string) (interface{}, error) {
+func (ll *UserLogic)Register(mobile, version string) (*typeuser.User, error) {
 	user, err := ll.UserModel.Register(mobile)
-
-	accessToken, err := GenTokenTest("123456", map[string]interface{}{typeuser.JwtUserField: user.Mobile, typeuser.JwtVersionField: "v1.0.1"}, 10)
-	if err == nil {
-		user.AccessToken = accessToken
-	}
 	return user, err
 }

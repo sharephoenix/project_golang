@@ -10,19 +10,17 @@ type UserLogic struct {
 	UserModel model.UserModel
 }
 
-
-func (ll *UserLogic)GetUser(mobile string) (interface{}, error) {
+func (ll *UserLogic) GetUser(mobile string) (interface{}, error) {
 	user, err := ll.UserModel.FindUser(mobile)
 	return user, err
 }
 
-func (ll *UserLogic)SendCode(mobile string) error {
+func (ll *UserLogic) SendCode(mobile string) error {
 	err := ll.UserModel.SendCode(mobile)
 	return err
 }
 
-
-func (ll *UserLogic)GetCode(mobile string) (*typeuser.MobileCode, error) {
+func (ll *UserLogic) GetCode(mobile string) (*typeuser.MobileCode, error) {
 	code, err := ll.UserModel.GetCode(mobile)
 	if err != nil {
 		return nil, err
@@ -30,12 +28,12 @@ func (ll *UserLogic)GetCode(mobile string) (*typeuser.MobileCode, error) {
 	return &typeuser.MobileCode{*code}, err
 }
 
-func (ll *UserLogic)Register(mobile, version string) (*typeuser.User, error) {
+func (ll *UserLogic) Register(mobile, version string) (*typeuser.User, error) {
 	user, err := ll.UserModel.Register(mobile)
 	return user, err
 }
 
-func (ll *UserLogic)Login(secretKey, mobile, code string) (*typeuser.User, error) {
+func (ll *UserLogic) Login(secretKey, mobile, code string) (*typeuser.User, error) {
 	realCode, err := ll.UserModel.GetCode(mobile)
 	if err != nil {
 		return nil, err
@@ -47,7 +45,7 @@ func (ll *UserLogic)Login(secretKey, mobile, code string) (*typeuser.User, error
 	if err != nil {
 		return nil, &baseresponse.LysError{typeuser.NETERROR_NO_USER}
 	}
-	token, err := GenTokenTest(secretKey, map[string]interface{}{"usr": mobile}, 3600 * 24)
+	token, err := GenTokenTest(secretKey, map[string]interface{}{"usr": mobile}, 3600*24)
 	if err != nil {
 		return nil, err
 	}

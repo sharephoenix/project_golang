@@ -17,7 +17,7 @@ type UserModel struct {
 
 const MoBileCode = "MobileCode#%v" // 手机验证码可以
 
-func (mm *UserModel)FindUser(mobile string) (*typeuser.User, error) {
+func (mm *UserModel) FindUser(mobile string) (*typeuser.User, error) {
 	val, err := mm.Biz.Get(mobile).Result()
 	if err != nil {
 		return nil, err
@@ -27,28 +27,27 @@ func (mm *UserModel)FindUser(mobile string) (*typeuser.User, error) {
 	return &user, nil
 }
 
-func (mm *UserModel)Register(mobile string) (*typeuser.User, error) {
+func (mm *UserModel) Register(mobile string) (*typeuser.User, error) {
 	user := typeuser.User{
 		"alexluan",
 		mobile,
 		"2222@qq.com",
 		12,
 		"shanghai",
-		"http://xxx.jpg",
+		"http://t8.baidu.com/it/u=1484500186,1503043093&fm=79&app=86&size=h300&n=0&g=4n&f=jpeg?sec=1579001524&t=6c70954716841f41bffafb628697889b",
 		nil,
 	}
 
 	bty, _ := json.Marshal(user)
 
-	err := mm.Biz.Set(mobile, string(bty), 3600 * 24 *time.Second).Err()
+	err := mm.Biz.Set(mobile, string(bty), 3600*24*time.Second).Err()
 	if err != nil {
 		return nil, err
 	}
 	return &user, nil
 }
 
-
-func (mm *UserModel)SendCode(mobile string) error {
+func (mm *UserModel) SendCode(mobile string) error {
 	rand.Seed(time.Now().UnixNano())
 	var code string
 	for i := 0; i < 4; i++ {
@@ -65,8 +64,7 @@ func (mm *UserModel)SendCode(mobile string) error {
 	return nil
 }
 
-
-func (mm *UserModel)GetCode(mobile string) (*string, error) {
+func (mm *UserModel) GetCode(mobile string) (*string, error) {
 	val, err := mm.Biz.Get(fmt.Sprintf(MoBileCode, mobile)).Result()
 	if err != nil {
 		return nil, err

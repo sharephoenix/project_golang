@@ -13,16 +13,16 @@ type UserHandler struct {
 }
 
 type ReqUser struct {
-	Mobile string `json:"mobile"`//`form:"mobile" json:"mobile" xml:"mobile" binding:"mobile"`
+	Mobile string `json:"mobile"` //`form:"mobile" json:"mobile" xml:"mobile" binding:"mobile"`
 }
 
 type LoginReq struct {
 	Mobile string `json:"mobile"`
-	Code string `json:"code"`
+	Code   string `json:"code"`
 }
 
 /*获取用户信息*/
-func (ll *UserHandler)GetUser(context *gin.Context) {
+func (ll *UserHandler) GetUser(context *gin.Context) {
 	mobile := context.Request.Header["Token"]
 	if len(mobile) <= 0 {
 		resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"lost token"})
@@ -34,14 +34,14 @@ func (ll *UserHandler)GetUser(context *gin.Context) {
 }
 
 /*注册用户信息*/
-func (ll *UserHandler)Register(accessSecret string) func (*gin.Context) {
+func (ll *UserHandler) Register(accessSecret string) func(*gin.Context) {
 	return func(context *gin.Context) {
 		version := context.Request.Header["Version"]
 
 		var reqUser ReqUser
 		baserequest.GetBody(context, &reqUser)
 
-		accessToken, err := logic.GenTokenTest(accessSecret, map[string]interface{}{typeuser.JwtUserField: reqUser.Mobile, typeuser.JwtVersionField: "v1.0.1"},  100000000000000000)
+		accessToken, err := logic.GenTokenTest(accessSecret, map[string]interface{}{typeuser.JwtUserField: reqUser.Mobile, typeuser.JwtVersionField: "v1.0.1"}, 100000000000000000)
 		if err == nil {
 			context.Request.Header["Authorization"] = []string{accessToken}
 		}
@@ -60,7 +60,7 @@ func (ll *UserHandler)Register(accessSecret string) func (*gin.Context) {
 }
 
 /*发送验证码*/
-func (ll *UserHandler)SendCode(context *gin.Context) {
+func (ll *UserHandler) SendCode(context *gin.Context) {
 	context.Request.Header["Test-Header"] = []string{"TESSSSS"}
 	mobile := context.Param("mobile")
 	err := ll.Logic.SendCode(mobile)
@@ -69,7 +69,7 @@ func (ll *UserHandler)SendCode(context *gin.Context) {
 }
 
 /*获取验证码*/
-func (ll *UserHandler)GetCode(context *gin.Context) {
+func (ll *UserHandler) GetCode(context *gin.Context) {
 	mobile := context.Param("mobile")
 	res, err := ll.Logic.GetCode(mobile)
 	resp := baseresponse.ConvertGinResonse(res, err)
@@ -77,22 +77,23 @@ func (ll *UserHandler)GetCode(context *gin.Context) {
 }
 
 /*登录*/
-func (ll *UserHandler)Login(secretKey string) func(ctx *gin.Context) {
+func (ll *UserHandler) Login(secretKey string) func(ctx *gin.Context) {
 	return func(context *gin.Context) {
-			var loginReq LoginReq
-			baserequest.GetBody(context, &loginReq)
-			if loginReq.Mobile == "" || loginReq.Code == "" {
-				resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"参数错误"})
-				context.JSON(200, resp)
-				return
-			}
-			res, err := ll.Logic.Login(secretKey, loginReq.Mobile, loginReq.Code)
-			resp := baseresponse.ConvertGinResonse(res, err)
+		var loginReq LoginReq
+		baserequest.GetBody(context, &loginReq)
+		if loginReq.Mobile == "" || loginReq.Code == "" {
+			resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"参数错误"})
 			context.JSON(200, resp)
+			return
 		}
+		res, err := ll.Logic.Login(secretKey, loginReq.Mobile, loginReq.Code)
+		println("000000")
+		resp := baseresponse.ConvertGinResonse(res, err)
+		context.JSON(200, resp)
+	}
 }
 
-func (ll *UserHandler)Test(context *gin.Context) {
+func (ll *UserHandler) Test(context *gin.Context) {
 	resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"test"})
 	context.JSON(200, resp)
 }

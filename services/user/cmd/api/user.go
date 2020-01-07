@@ -13,6 +13,7 @@ import (
 	"project_golang/services/user/handler"
 	logic2 "project_golang/services/user/logic"
 	"project_golang/services/user/model"
+	"runtime/debug"
 )
 
 var configFile = flag.String("f", "etc/config.json", "the config file")
@@ -31,7 +32,6 @@ func main() {
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
-
 
 	biz := redis.NewClient(&redis.Options{
 		Addr:     conf.Redis.Addr,
@@ -75,7 +75,7 @@ func main() {
 
 		context.Next()
 
-	}, func (context *gin.Context) {
+	}, func(context *gin.Context) {
 
 		// Pass on to the next-in-chain
 
@@ -88,7 +88,7 @@ func main() {
 	r.GET("/logininfo", func(context *gin.Context) {
 		jwtToken := context.Request.Header["Authorization"]
 		token := context.Request.Header["Token"]
-		if jwtToken == nil || len(jwtToken) <= 0{
+		if jwtToken == nil || len(jwtToken) <= 0 {
 			resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"头部缺少 Authorization"})
 			context.JSON(200, resp)
 			context.Abort()
@@ -113,18 +113,17 @@ func main() {
 			context.Abort()
 		}
 		context.Next()
-	} ,userHandler.GetUser)
+	}, userHandler.GetUser)
 	r.GET("/sendCode/:mobile", userHandler.SendCode)
 	r.GET("/getCode/:mobile", userHandler.GetCode)
 	r.POST("/register", func(context *gin.Context) {
 		context.Next()
-	},userHandler.Register(conf.Auth.AccessSecret))
+	}, userHandler.Register(conf.Auth.AccessSecret))
 	r.POST("/login", userHandler.Login(conf.Auth.AccessSecret))
-	//r.POST("/*", userHandler.Test)
-	//r.GET("/*", userHandler.Test)
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("stack:", err, string(debug.Stack()))
+		}
+	}()
 	r.Run(conf.Port)
 }
-
-
-
-

@@ -19,7 +19,7 @@ var configFile = flag.String("f", "etc/config.json", "the config file")
 func main() {
 	//flag.Parse()
 	//var c config.Config
-	//conf.MustLoad(*configFile, &c)
+	//conf.MustLoad(*configFile, &c)cd m
 
 	// 配置初始化
 	file, _ := os.Open("etc/config.json")
@@ -58,16 +58,13 @@ func main() {
 
 	// 全局中间件 middleware-校验 Authorization token 是否合法
 	r.Use(func(context *gin.Context) {
-
-		fmt.Println("Im a dummy!11111111", conf)
+		context.Header("Access-Control-Allow-Origin", "*") // server 端支持跨域问题
 
 		// Pass on to the next-in-chain
 
 		context.Next()
 
 	}, func (context *gin.Context) {
-
-		fmt.Println("Im a dummy!22222222", conf)
 
 		// Pass on to the next-in-chain
 
@@ -112,6 +109,8 @@ func main() {
 		context.Next()
 	},userHandler.Register(conf.Auth.AccessSecret))
 	r.POST("/login", userHandler.Login(conf.Auth.AccessSecret))
+	//r.POST("/*", userHandler.Test)
+	//r.GET("/*", userHandler.Test)
 	r.Run(conf.Port)
 }
 

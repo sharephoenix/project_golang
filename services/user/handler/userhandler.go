@@ -61,6 +61,7 @@ func (ll *UserHandler)Register(accessSecret string) func (*gin.Context) {
 
 /*发送验证码*/
 func (ll *UserHandler)SendCode(context *gin.Context) {
+	context.Request.Header["Test-Header"] = []string{"TESSSSS"}
 	mobile := context.Param("mobile")
 	err := ll.Logic.SendCode(mobile)
 	resp := baseresponse.ConvertGinResonse(nil, err)
@@ -80,8 +81,18 @@ func (ll *UserHandler)Login(secretKey string) func(ctx *gin.Context) {
 	return func(context *gin.Context) {
 			var loginReq LoginReq
 			baserequest.GetBody(context, &loginReq)
+			if loginReq.Mobile == "" || loginReq.Code == "" {
+				resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"参数错误"})
+				context.JSON(200, resp)
+				return
+			}
 			res, err := ll.Logic.Login(secretKey, loginReq.Mobile, loginReq.Code)
 			resp := baseresponse.ConvertGinResonse(res, err)
 			context.JSON(200, resp)
 		}
+}
+
+func (ll *UserHandler)Test(context *gin.Context) {
+	resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"test"})
+	context.JSON(200, resp)
 }

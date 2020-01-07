@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
+	"net/http"
 	"os"
 	"project_golang/common/baseresponse"
 	"project_golang/services/user/cmd/api/config"
@@ -58,9 +59,19 @@ func main() {
 
 	// 全局中间件 middleware-校验 Authorization token 是否合法
 	r.Use(func(context *gin.Context) {
-		context.Header("Access-Control-Allow-Origin", "*") // server 端支持跨域问题
 
-		// Pass on to the next-in-chain
+		method := context.Request.Method
+		// server 端支持跨域问题
+		context.Header("Access-Control-Allow-Origin", "*")
+		context.Header("Access-Control-Allow-Headers", "Access-Control-Expose-Headers, Access-Control-Allow-Headers, Content-Type,AccessToken,X-CSRF-Token, Authorization, Token, Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Access-Control-Allow-Methods")
+		context.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+		context.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type")
+		context.Header("Access-Control-Allow-Credentials", "true")
+
+		//放行所有OPTIONS方法
+		if method == "OPTIONS" {
+			context.AbortWithStatus(http.StatusNoContent)
+		}
 
 		context.Next()
 

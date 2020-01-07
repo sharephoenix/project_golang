@@ -18,3 +18,7 @@ const (
 	JwtUserField = "usr"
 	JwtVersionField = "ver"
 )
+
+const (
+	NETERROR_NO_USER = "没有找到用户"
+)

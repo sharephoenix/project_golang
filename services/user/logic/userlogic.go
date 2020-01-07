@@ -45,7 +45,7 @@ func (ll *UserLogic)Login(secretKey, mobile, code string) (*typeuser.User, error
 	}
 	user, err := ll.UserModel.FindUser(mobile)
 	if err != nil {
-		return nil, err
+		return nil, &baseresponse.LysError{typeuser.NETERROR_NO_USER}
 	}
 	token, err := GenTokenTest(secretKey, map[string]interface{}{"usr": mobile}, 3600 * 24)
 	if err != nil {

@@ -63,7 +63,7 @@ func main() {
 		method := context.Request.Method
 		// server 端支持跨域问题
 		context.Header("Access-Control-Allow-Origin", "*")
-		context.Header("Access-Control-Allow-Headers", "Access-Control-Expose-Headers, Access-Control-Allow-Headers, Content-Type,AccessToken,X-CSRF-Token, Authorization, Token, Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Access-Control-Allow-Methods")
+		context.Header("Access-Control-Allow-Headers", "Access-Control-Expose-Headers, Access-Control-Allow-Headers, Content-Type,AccessToken,X-CSRF-Token, Authorization, Token, Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Access-Control-Allow-Methods, Version")
 		context.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
 		context.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type")
 		context.Header("Access-Control-Allow-Credentials", "true")
@@ -116,10 +116,13 @@ func main() {
 	}, userHandler.GetUser)
 	r.GET("/sendCode/:mobile", userHandler.SendCode)
 	r.GET("/getCode/:mobile", userHandler.GetCode)
+	r.GET("/getUsers", userHandler.FindAll)
 	r.POST("/register", func(context *gin.Context) {
 		context.Next()
 	}, userHandler.Register(conf.Auth.AccessSecret))
 	r.POST("/login", userHandler.Login(conf.Auth.AccessSecret))
+	r.POST("/deleteUser", userHandler.DeleteUser)
+	r.POST("/editUser", userHandler.EditUser)
 	defer func() {
 		if err := recover(); err != nil {
 			fmt.Println("stack:", err, string(debug.Stack()))

@@ -6,6 +6,7 @@ import (
 	"github.com/go-redis/redis"
 	"math/rand"
 	"project_golang/common/baseresponse"
+	uuid2 "project_golang/common/uuid"
 	"project_golang/services/user/typeuser"
 	"strconv"
 	"time"
@@ -16,9 +17,11 @@ type UserModel struct {
 }
 
 const MoBileCode = "MobileCode#%v" // 手机验证码可以
+const UserField = "UserFields#%v"
+const UserSaveKey = "UserSearchKeys"
 
 func (mm *UserModel) FindUser(mobile string) (*typeuser.User, error) {
-	val, err := mm.Biz.Get(mobile).Result()
+	val, err := mm.Biz.HGet(UserSaveKey, fmt.Sprintf(UserField, mobile)).Result()
 	if err != nil {
 		return nil, err
 	}
@@ -27,24 +30,80 @@ func (mm *UserModel) FindUser(mobile string) (*typeuser.User, error) {
 	return &user, nil
 }
 
-func (mm *UserModel) Register(mobile string) (*typeuser.User, error) {
-	user := typeuser.User{
-		"alexluan",
-		mobile,
-		"2222@qq.com",
-		12,
-		"shanghai",
-		"http://t8.baidu.com/it/u=1484500186,1503043093&fm=79&app=86&size=h300&n=0&g=4n&f=jpeg?sec=1579001524&t=6c70954716841f41bffafb628697889b",
-		nil,
-	}
-
-	bty, _ := json.Marshal(user)
-
-	err := mm.Biz.Set(mobile, string(bty), 3600*24*time.Second).Err()
+func (mm *UserModel) FindAllUser() (*[]typeuser.User, error) {
+	val, err := mm.Biz.HGetAll(UserSaveKey).Result()
 	if err != nil {
 		return nil, err
 	}
+	var users []typeuser.User
+	for u := range val {
+		userJson := val[u]
+		var user typeuser.User
+		json.Unmarshal([]byte(userJson), &user)
+		users = append(users, user)
+	}
+	return &users, nil
+}
+
+func (mm *UserModel) Register(nickname, email, address, avatar, mobile string, age int64) (*typeuser.User, error) {
+	user := typeuser.User{
+		nil,
+		nickname,
+		mobile,
+		email,
+		age,
+		address,
+		avatar,
+		nil,
+	}
+	uuid := uuid2.CreateUUID()
+	user.ID = &uuid
+	if user.ID == nil {
+		return nil, &baseresponse.LysError{"创建用户 ID 失败"}
+	}
+
+	return mm.AddUser(nickname, email, address, avatar, mobile, *user.ID, age)
+}
+
+func (mm *UserModel) AddUser(nickname, email, address, avatar, mobile, uuid string, age int64) (*typeuser.User, error) {
+	user := typeuser.User{
+		&uuid,
+		nickname,
+		mobile,
+		email,
+		age,
+		address,
+		avatar,
+		nil,
+	}
+	bty, _ := json.Marshal(user)
+	cmd := mm.Biz.HSet(UserSaveKey, fmt.Sprintf(UserField, user.Mobile), string(bty))
+	_, err := cmd.Result()
+	if err != nil {
+		return nil, err
+	}
+
 	return &user, nil
+}
+
+/*删除用户信息*/
+func (mm *UserModel) DeleteUser(mobile string) error {
+	_, err := mm.Biz.HDel(UserSaveKey, fmt.Sprintf(UserField, mobile)).Result()
+	return err
+}
+
+/*编辑用户信息*/
+func (mm *UserModel) EditUser(nickname, email, address, avatar, mobile, token string, age int64) (*typeuser.User, error) {
+
+	usr, err := mm.FindUser(mobile)
+	if err != nil {
+		return nil, &baseresponse.LysError{"该用户不存在"}
+	}
+	usr, err = mm.AddUser(nickname, email, address, avatar, mobile, token, age)
+	if err != nil {
+		return nil, err
+	}
+	return usr, err
 }
 
 func (mm *UserModel) SendCode(mobile string) error {

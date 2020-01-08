@@ -13,7 +13,13 @@ type UserHandler struct {
 }
 
 type ReqUser struct {
-	Mobile string `json:"mobile"` //`form:"mobile" json:"mobile" xml:"mobile" binding:"mobile"`
+	ID       string `json:"id"`
+	Nickname string `json:"nickname"`
+	Email    string `json:"email"`
+	Address  string `json:"address"`
+	Avatar   string `json:"avatar"`
+	Age      int64  `json:"age"`
+	Mobile   string `json:"mobile"` //`form:"mobile" json:"mobile" xml:"mobile" binding:"mobile"`
 }
 
 type LoginReq struct {
@@ -51,8 +57,10 @@ func (ll *UserHandler) Register(accessSecret string) func(*gin.Context) {
 			context.JSON(200, resp)
 			return
 		} else {
-			res, err := ll.Logic.Register(reqUser.Mobile, version[0])
-			res.AccessToken = accessToken
+			res, err := ll.Logic.Register(reqUser.Nickname, reqUser.Email, reqUser.Address, reqUser.Avatar, reqUser.Mobile, reqUser.Age, version[0])
+			if err == nil {
+				res.AccessToken = accessToken
+			}
 			resp := baseresponse.ConvertGinResonse(res, err)
 			context.JSON(200, resp)
 		}
@@ -91,6 +99,35 @@ func (ll *UserHandler) Login(secretKey string) func(ctx *gin.Context) {
 		resp := baseresponse.ConvertGinResonse(res, err)
 		context.JSON(200, resp)
 	}
+}
+
+/*获取所有用户信息*/
+func (ll *UserHandler) FindAll(context *gin.Context) {
+	users, err := ll.Logic.FindAll()
+	resp := baseresponse.ConvertGinResonse(users, err)
+	context.JSON(200, resp)
+}
+
+/*编辑用户*/
+func (ll *UserHandler) EditUser(context *gin.Context) {
+	var reqUser ReqUser
+	baserequest.GetBody(context, &reqUser)
+	usr, err := ll.Logic.EditUser(reqUser.Nickname, reqUser.Email, reqUser.Address, reqUser.Avatar, reqUser.Mobile, reqUser.ID, reqUser.Age)
+	resp := baseresponse.ConvertGinResonse(usr, err)
+	context.JSON(200, resp)
+}
+
+/*删除用户*/
+func (ll *UserHandler) DeleteUser(context *gin.Context) {
+	type ReqDelete struct {
+		Mobile string `json:"mobile"`
+	}
+	var reqDelete ReqDelete
+	baserequest.GetBody(context, &reqDelete)
+	err := ll.Logic.DeleteUser(reqDelete.Mobile)
+
+	resp := baseresponse.ConvertGinResonse(nil, err)
+	context.JSON(200, resp)
 }
 
 func (ll *UserHandler) Test(context *gin.Context) {

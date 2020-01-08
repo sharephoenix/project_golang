@@ -28,8 +28,12 @@ func (ll *UserLogic) GetCode(mobile string) (*typeuser.MobileCode, error) {
 	return &typeuser.MobileCode{*code}, err
 }
 
-func (ll *UserLogic) Register(mobile, version string) (*typeuser.User, error) {
-	user, err := ll.UserModel.Register(mobile)
+func (ll *UserLogic) Register(nickname, email, address, avatar, mobile string, age int64, version string) (*typeuser.User, error) {
+	cacheUser, err := ll.UserModel.FindUser(mobile)
+	if err == nil {
+		return nil, &baseresponse.LysError{"该用户已经存在" + cacheUser.Nickname}
+	}
+	user, err := ll.UserModel.Register(nickname, email, address, avatar, mobile, age)
 	return user, err
 }
 
@@ -50,5 +54,26 @@ func (ll *UserLogic) Login(secretKey, mobile, code string) (*typeuser.User, erro
 		return nil, err
 	}
 	user.AccessToken = token
+	return user, nil
+}
+
+func (ll *UserLogic) FindAll() (*[]typeuser.User, error) {
+	users, err := ll.UserModel.FindAllUser()
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
+}
+
+func (ll *UserLogic) DeleteUser(mobile string) error {
+	err := ll.UserModel.DeleteUser(mobile)
+	return err
+}
+
+func (ll *UserLogic) EditUser(nickname, email, address, avatar, mobile, token string, age int64) (*typeuser.User, error) {
+	user, err := ll.UserModel.EditUser(nickname, email, address, avatar, mobile, token, age)
+	if err != nil {
+		return nil, err
+	}
 	return user, nil
 }

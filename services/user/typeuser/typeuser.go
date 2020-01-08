@@ -1,6 +1,7 @@
 package typeuser
 
 type User struct {
+	ID          *string     `json:"id"`
 	Nickname    string      `json:"nickname"`
 	Mobile      string      `json:"mobile"`
 	Email       string      `json:"email"`

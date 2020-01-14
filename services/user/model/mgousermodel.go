@@ -22,18 +22,6 @@ func (mm *UserModel) MgoFindAllUser() (*[]typeuser.User, error) {
 		return nil, err
 	}
 	return &users, nil
-	//val, err := mm.Biz.HGetAll(UserSaveKey).Result()
-	//if err != nil {
-	//	return nil, err
-	//}
-	//var users []typeuser.User
-	//for u := range val {
-	//	userJson := val[u]
-	//	var user typeuser.User
-	//	json.Unmarshal([]byte(userJson), &user)
-	//	users = append(users, user)
-	//}
-	//return &users, nil
 }
 
 func (mm *UserModel) MgoRegister(nickname, email, address, avatar, mobile string, age int64) (*typeuser.User, error) {

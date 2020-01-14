@@ -11,7 +11,7 @@ type UserLogic struct {
 }
 
 func (ll *UserLogic) GetUser(mobile string) (interface{}, error) {
-	user, err := ll.UserModel.FindUser(mobile)
+	user, err := ll.UserModel.MgoFindUser(mobile)
 	return user, err
 }
 

@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	"net/http"
 	"project_golang/common/baserequest"
 	"project_golang/common/baseresponse"
 	"project_golang/services/user/logic"
@@ -130,7 +131,24 @@ func (ll *UserHandler) DeleteUser(context *gin.Context) {
 	context.JSON(200, resp)
 }
 
-func (ll *UserHandler) Test(context *gin.Context) {
-	resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"test"})
-	context.JSON(200, resp)
+func (ll *UserHandler) Test(c *gin.Context) {
+	response, err := http.Get("https://www.baidu.com")
+	if err != nil || response.StatusCode != http.StatusOK {
+		c.Status(http.StatusServiceUnavailable)
+		return
+	}
+
+	reader := response.Body
+	contentLength := response.ContentLength
+	contentType := response.Header.Get("Content-Type")
+
+	extraHeaders := map[string]string{
+		"Content-Disposition": `attachment; filename="gopher.png"`,
+	}
+
+	c.DataFromReader(http.StatusOK, contentLength, contentType, reader, extraHeaders)
+	//var a []interface{}
+	//a = append(a, "alexluan")
+	//bty, _ := json.Marshal(a)
+	//context.String(200, "%v", bty)
 }

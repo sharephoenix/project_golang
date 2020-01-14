@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"project_golang/common/baseresponse"
+	"project_golang/common/mgodb"
 	"project_golang/services/user/cmd/api/config"
 	"project_golang/services/user/handler"
 	logic2 "project_golang/services/user/logic"
@@ -29,6 +30,7 @@ func main() {
 	decoder := json.NewDecoder(file)
 	conf := config.Config{}
 	err := decoder.Decode(&conf)
+
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
@@ -38,13 +40,22 @@ func main() {
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
-
 	pong, err := biz.Ping().Result()
 	fmt.Println(pong, err)
+
+	var mgo = &mgodb.Mgo{
+		"mongodb://localhost:27017",
+		"user0",
+		"table_name0",
+		nil,
+	}
+
+	collection := mgo.Connect()
 
 	// 业务初始化
 	userModel := model.UserModel{
 		biz,
+		collection,
 	}
 
 	logic := logic2.UserLogic{
@@ -123,6 +134,7 @@ func main() {
 	r.POST("/login", userHandler.Login(conf.Auth.AccessSecret))
 	r.POST("/deleteUser", userHandler.DeleteUser)
 	r.POST("/editUser", userHandler.EditUser)
+	r.GET("/test", userHandler.Test)
 	defer func() {
 		if err := recover(); err != nil {
 			fmt.Println("stack:", err, string(debug.Stack()))

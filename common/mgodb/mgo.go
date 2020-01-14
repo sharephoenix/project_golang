@@ -11,28 +11,29 @@ import (
 	"time"
 )
 
+// 仅仅被用于测试
 type Us struct {
 	Name string `json:"name"`
 	Age  int64  `json:"age"`
 }
 
 type Mgo struct {
-	uri           string //数据库网络地址
-	database      string //要连接的数据库
-	collection    string //要连接的集合
-	mgoCollection *mongo.Collection
+	Uri           string //数据库网络地址
+	Database      string //要连接的数据库
+	Collection    string //要连接的集合
+	MgoCollection *mongo.Collection
 }
 
 func (m *Mgo) Connect() *mongo.Collection {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel() //养成良好的习惯，在调用WithTimeout之后defer cancel()
 
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.uri))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.Uri))
 	if err != nil {
 		log.Print(err)
 	}
-	collection := client.Database(m.database).Collection(m.collection)
-	m.mgoCollection = collection
+	collection := client.Database(m.Database).Collection(m.Collection)
+	m.MgoCollection = collection
 	return collection
 }
 
@@ -45,7 +46,7 @@ func (m *Mgo) All(filter interface{}, results interface{}) error {
 		return &baseresponse.LysError{"缺少参数 result"}
 	}
 
-	collection := m.mgoCollection
+	collection := m.MgoCollection
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -60,7 +61,7 @@ func (m *Mgo) All(filter interface{}, results interface{}) error {
 }
 
 func (m *Mgo) FindOne(filter interface{}, result interface{}) error {
-	collection := m.mgoCollection
+	collection := m.MgoCollection
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -73,13 +74,13 @@ func (m *Mgo) FindOne(filter interface{}, result interface{}) error {
 	return err
 }
 
-func (m *Mgo) InsertOne(data *interface{}) error {
+func (m *Mgo) InsertOne(data interface{}) error {
 	if data == nil {
 		return &baseresponse.LysError{"插入数据不正确"}
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	_, err := m.mgoCollection.InsertOne(ctx, data)
+	_, err := m.MgoCollection.InsertOne(ctx, data)
 	if err != nil {
 		return err
 	}
@@ -91,11 +92,23 @@ func (m *Mgo) Update(filter, data interface{}) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	result, err := m.mgoCollection.UpdateOne(ctx, filter, bson.M{"$set": data})
+	result, err := m.MgoCollection.UpdateOne(ctx, filter, bson.M{"$set": data})
 
 	if err != nil {
 		fmt.Println("修改失败", result.ModifiedCount)
 	} else {
 		fmt.Println("修改成功", result.ModifiedCount)
 	}
+}
+
+func (m *Mgo) Delete(filter interface{}) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	result, err := m.MgoCollection.DeleteMany(ctx, filter)
+	if err != nil {
+		return err
+	}
+	fmt.Println("删除记录", result.DeletedCount, "条")
+	return nil
 }

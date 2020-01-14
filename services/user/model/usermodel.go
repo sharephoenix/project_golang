@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-redis/redis"
-	"go.mongodb.org/mongo-driver/mongo"
 	"math/rand"
 	"project_golang/common/baseresponse"
+	"project_golang/common/mgodb"
 	uuid2 "project_golang/common/uuid"
 	"project_golang/services/user/typeuser"
 	"strconv"
@@ -15,7 +15,7 @@ import (
 
 type UserModel struct {
 	Biz        *redis.Client
-	Collection *mongo.Collection
+	Collection *mgodb.Mgo
 }
 
 const MoBileCode = "MobileCode#%v" // 手机验证码可以

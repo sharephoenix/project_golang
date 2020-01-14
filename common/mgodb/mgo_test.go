@@ -71,3 +71,20 @@ func TestMgo_FindAll(t *testing.T) {
 
 	fmt.Println("findAll", users)
 }
+
+func TestMgo_Delete(t *testing.T) {
+	var mgo = &Mgo{
+		"mongodb://localhost:27017",
+		"user",
+		"table_name",
+		nil,
+	}
+	mgo.Connect()
+
+	err := mgo.Delete(bson.M{"name": "eric"})
+	if err != nil {
+		fmt.Println("DELETE_Error", err.Error())
+	}
+
+	fmt.Println("DELETE")
+}

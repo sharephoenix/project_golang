@@ -49,13 +49,12 @@ func main() {
 		"table_name0",
 		nil,
 	}
-
-	collection := mgo.Connect()
+	mgo.Connect()
 
 	// 业务初始化
 	userModel := model.UserModel{
 		biz,
-		collection,
+		mgo,
 	}
 
 	logic := logic2.UserLogic{

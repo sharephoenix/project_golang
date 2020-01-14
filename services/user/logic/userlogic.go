@@ -29,11 +29,11 @@ func (ll *UserLogic) GetCode(mobile string) (*typeuser.MobileCode, error) {
 }
 
 func (ll *UserLogic) Register(nickname, email, address, avatar, mobile string, age int64, version string) (*typeuser.User, error) {
-	cacheUser, err := ll.UserModel.FindUser(mobile)
+	cacheUser, err := ll.UserModel.MgoFindUser(mobile)
 	if err == nil {
 		return nil, &baseresponse.LysError{"该用户已经存在" + cacheUser.Nickname}
 	}
-	user, err := ll.UserModel.Register(nickname, email, address, avatar, mobile, age)
+	user, err := ll.UserModel.MgoRegister(nickname, email, address, avatar, mobile, age)
 	return user, err
 }
 
@@ -45,7 +45,7 @@ func (ll *UserLogic) Login(secretKey, mobile, code string) (*typeuser.User, erro
 	if *realCode != code {
 		return nil, &baseresponse.LysError{"验证码错误"}
 	}
-	user, err := ll.UserModel.FindUser(mobile)
+	user, err := ll.UserModel.MgoFindUser(mobile)
 	if err != nil {
 		return nil, &baseresponse.LysError{typeuser.NETERROR_NO_USER}
 	}
@@ -58,7 +58,7 @@ func (ll *UserLogic) Login(secretKey, mobile, code string) (*typeuser.User, erro
 }
 
 func (ll *UserLogic) FindAll() (*[]typeuser.User, error) {
-	users, err := ll.UserModel.FindAllUser()
+	users, err := ll.UserModel.MgoFindAllUser()
 	if err != nil {
 		return nil, err
 	}

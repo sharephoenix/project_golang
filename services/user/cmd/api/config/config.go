@@ -16,9 +16,9 @@ type Redis struct {
 }
 
 type Mongo struct {
-	Addr     string
-	Password string
-	DB       string
+	Addr       string
+	DB         string
+	Collection string
 }
 
 type Auth struct {

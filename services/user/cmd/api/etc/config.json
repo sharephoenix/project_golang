@@ -9,8 +9,8 @@
   },
   "Mongo": {
     "Addr": "mongodb://95.169.15.20:27017",
-    "Password": "user",
-    "DB": "user_info"
+    "DB": "user",
+    "Collection": "user_info"
   },
   "Auth":{
     "AccessSecret":"abcdbbbbbbb"

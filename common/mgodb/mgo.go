@@ -88,7 +88,7 @@ func (m *Mgo) InsertOne(data interface{}) error {
 }
 
 //根据id进行修改
-func (m *Mgo) Update(filter, data interface{}) {
+func (m *Mgo) Update(filter, data interface{}) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -99,6 +99,7 @@ func (m *Mgo) Update(filter, data interface{}) {
 	} else {
 		fmt.Println("修改成功", result.ModifiedCount)
 	}
+	return err
 }
 
 func (m *Mgo) Delete(filter interface{}) error {

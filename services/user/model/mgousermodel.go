@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"go.mongodb.org/mongo-driver/bson"
+	"project_golang/common/baseresponse"
 	"project_golang/services/user/typeuser"
 )
 
@@ -43,4 +44,27 @@ func (mm *UserModel) MgoRegister(nickname, email, address, avatar, mobile string
 	var user typeuser.User
 	json.Unmarshal(bty, &user)
 	return &user, nil
+}
+
+/*编辑用户信息*/
+func (mm *UserModel) MgoEditUser(nickname, email, address, avatar, mobile, token string, age int64) (*typeuser.User, error) {
+
+	usr, err := mm.MgoFindUser(mobile)
+	if err != nil {
+		return nil, &baseresponse.LysError{"该用户不存在"}
+	}
+	err = mm.Collection.Update(bson.M{"mobile": mobile}, bson.M{"$set": bson.M{
+		"address":  address,
+		"nickname": nickname,
+		"email":    email,
+		"avatar":   avatar,
+		"age":      age}}) //mm.AddUser(nickname, email, address, avatar, mobile, token, age)
+	if err != nil {
+		return nil, err
+	}
+	usr, err = mm.MgoFindUser(mobile)
+	if err != nil {
+		return nil, &baseresponse.LysError{"该用户不存在"}
+	}
+	return usr, err
 }

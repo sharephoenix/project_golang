@@ -44,9 +44,9 @@ func main() {
 	fmt.Println(pong, err)
 
 	var mgo = &mgodb.Mgo{
-		"mongodb://localhost:27017",
-		"user0",
-		"table_name0",
+		conf.Mongo.Addr,
+		conf.Mongo.DB,
+		conf.Mongo.Collection,
 		nil,
 	}
 	mgo.Connect()

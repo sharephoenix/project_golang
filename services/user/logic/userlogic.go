@@ -71,7 +71,7 @@ func (ll *UserLogic) DeleteUser(mobile string) error {
 }
 
 func (ll *UserLogic) EditUser(nickname, email, address, avatar, mobile, token string, age int64) (*typeuser.User, error) {
-	user, err := ll.UserModel.EditUser(nickname, email, address, avatar, mobile, token, age)
+	user, err := ll.UserModel.MgoEditUser(nickname, email, address, avatar, mobile, token, age)
 	if err != nil {
 		return nil, err
 	}

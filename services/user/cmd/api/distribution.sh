@@ -9,5 +9,5 @@ ls -al user
 echo "========== 开始打包 docker =========="
 docker build -t luanys/zcdocker:1.0.1 .
 echo "========== 开始推送 docker 到远端 =========="
-docker push luanys/zcdocker:1.0.1 .
+docker push luanys/zcdocker:1.0.1
 echo "========== end =========="

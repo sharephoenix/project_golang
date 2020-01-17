@@ -2,6 +2,7 @@ package model
 
 import (
 	"encoding/json"
+	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"project_golang/common/baseresponse"
 	"project_golang/services/user/typeuser"
@@ -51,20 +52,26 @@ func (mm *UserModel) MgoEditUser(nickname, email, address, avatar, mobile, token
 
 	usr, err := mm.MgoFindUser(mobile)
 	if err != nil {
-		return nil, &baseresponse.LysError{"该用户不存在"}
+		return nil, &baseresponse.LysError{"该用户不存在0"}
 	}
-	err = mm.Collection.Update(bson.M{"mobile": mobile}, bson.M{"$set": bson.M{
-		"address":  address,
+	fmt.Println("eee", mobile, address, nickname, email, avatar, age)
+	selector := bson.M{"mobile": mobile}
+	data := bson.M{
 		"nickname": nickname,
 		"email":    email,
+		"address":  address,
+		"mobile":   mobile,
 		"avatar":   avatar,
-		"age":      age}}) //mm.AddUser(nickname, email, address, avatar, mobile, token, age)
+		"age":      age,
+	}
+	err = mm.Collection.Update(selector, data)
 	if err != nil {
+		fmt.Println("eee", err.Error())
 		return nil, err
 	}
 	usr, err = mm.MgoFindUser(mobile)
 	if err != nil {
-		return nil, &baseresponse.LysError{"该用户不存在"}
+		return nil, &baseresponse.LysError{"该用户不存在1"}
 	}
 	return usr, err
 }

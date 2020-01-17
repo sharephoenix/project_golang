@@ -23,7 +23,7 @@ func main() {
 	//flag.Parse()
 	//var c config.Config
 	//conf.MustLoad(*configFile, &c)cd m
-
+	fmt.Println("begining!!!")
 	// 配置初始化
 	file, _ := os.Open("etc/config.json")
 	defer file.Close()

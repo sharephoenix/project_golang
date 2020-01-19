@@ -66,7 +66,7 @@ func (ll *UserLogic) FindAll() (*[]typeuser.User, error) {
 }
 
 func (ll *UserLogic) DeleteUser(mobile string) error {
-	err := ll.UserModel.DeleteUser(mobile)
+	err := ll.UserModel.MgoDeleteUser(mobile)
 	return err
 }
 

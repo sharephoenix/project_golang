@@ -75,3 +75,10 @@ func (mm *UserModel) MgoEditUser(nickname, email, address, avatar, mobile, token
 	}
 	return usr, err
 }
+
+/*删除用户信息*/
+func (mm *UserModel) MgoDeleteUser(mobile string) error {
+	selector := bson.M{"mobile": mobile}
+	err := mm.Collection.Delete(selector) //mm.Biz.HDel(UserSaveKey, fmt.Sprintf(UserField, mobile)).Result()
+	return err
+}

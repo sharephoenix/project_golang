@@ -108,7 +108,7 @@ func (mm *UserModel) EditUser(nickname, email, address, avatar, mobile, token st
 	return usr, err
 }
 
-func (mm *UserModel) SendCode(mobile string) error {
+func (mm *UserModel) CreateLoginCode(mobile string) (*string, error) {
 	rand.Seed(time.Now().UnixNano())
 	var code string
 	for i := 0; i < 4; i++ {
@@ -116,13 +116,13 @@ func (mm *UserModel) SendCode(mobile string) error {
 		code += strconv.Itoa(randNum)
 	}
 	if code == "" {
-		return &baseresponse.LysError{"生成验证码失败"}
+		return nil, &baseresponse.LysError{"生成验证码失败"}
 	}
 	err := mm.Biz.Set(fmt.Sprintf(MoBileCode, mobile), code, 60*time.Second).Err()
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return &code, nil
 }
 
 func (mm *UserModel) GetCode(mobile string) (*string, error) {

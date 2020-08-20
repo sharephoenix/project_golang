@@ -25,14 +25,15 @@ type Mgo struct {
 }
 
 func (m *Mgo) Connect() *mongo.Collection {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel() //养成良好的习惯，在调用WithTimeout之后defer cancel()
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	//defer cancel() //养成良好的习惯，在调用WithTimeout之后defer cancel()
 
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.Uri))
 	if err != nil {
 		log.Print(err)
 	}
 	collection := client.Database(m.Database).Collection(m.Collection)
+	fmt.Println("lll:", collection)
 	m.MgoCollection = collection
 	return collection
 }
@@ -48,7 +49,7 @@ func (m *Mgo) All(filter interface{}, results interface{}) error {
 
 	collection := m.MgoCollection
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 
 	cursor, err := collection.Find(ctx, filter)
@@ -62,7 +63,6 @@ func (m *Mgo) All(filter interface{}, results interface{}) error {
 
 func (m *Mgo) FindOne(filter interface{}, result interface{}) error {
 	collection := m.MgoCollection
-
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -93,7 +93,6 @@ func (m *Mgo) Update(filter, data interface{}) error {
 	defer cancel()
 
 	result, err := m.MgoCollection.UpdateOne(ctx, filter, bson.M{"$set": data})
-
 	if err != nil {
 		fmt.Println("修改失败", result.ModifiedCount)
 	} else {

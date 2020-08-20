@@ -51,3 +51,12 @@ func Test_Login(t *testing.T) {
 		fmt.Printf("登录成功:%v", string(jsonBytes))
 	}
 }
+
+func Test_CreateToken(t *testing.T) {
+	token, err := CreateToken()
+	if err != nil {
+		fmt.Println("error:", err)
+	} else {
+		fmt.Println("token:", *token)
+	}
+}

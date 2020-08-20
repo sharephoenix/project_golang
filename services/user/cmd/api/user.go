@@ -91,7 +91,7 @@ func main() {
 		context.Next()
 
 	})
-
+	userHandler.Logic.InitilizeAdmin()
 	/*局部中间件*/
 	// 获取当前用户登录信息
 	r.GET("/logininfo", func(context *gin.Context) {

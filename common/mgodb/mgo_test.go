@@ -8,7 +8,7 @@ import (
 
 func TestMgo_Connect(t *testing.T) {
 	var mgo = &Mgo{
-		"mongodb://localhost:27017",
+		"mongodb://localhost:31017",
 		"user0",
 		"table_name0",
 		nil,
@@ -19,7 +19,7 @@ func TestMgo_Connect(t *testing.T) {
 
 func TestMgo_Update(t *testing.T) {
 	var mgo = &Mgo{
-		"mongodb://localhost:27017",
+		"mongodb://localhost:31017",
 		"user0",
 		"table_name0",
 		nil,
@@ -35,7 +35,7 @@ func TestMgo_Update(t *testing.T) {
 
 func TestMgo_FindOne(t *testing.T) {
 	var mgo = &Mgo{
-		"mongodb://localhost:27017",
+		"mongodb://localhost:31017",
 		"user0",
 		"table_name0",
 		nil,
@@ -45,7 +45,7 @@ func TestMgo_FindOne(t *testing.T) {
 
 	var users Us
 
-	err := mgo.FindOne(bson.M{"name": "ericn"}, &users)
+	err := mgo.FindOne(bson.M{"name": "ericluan"}, &users)
 	if err != nil {
 		fmt.Println("FindOne_Error", err.Error())
 	}
@@ -55,7 +55,7 @@ func TestMgo_FindOne(t *testing.T) {
 
 func TestMgo_FindAll(t *testing.T) {
 	var mgo = &Mgo{
-		"mongodb://localhost:27017",
+		"mongodb://localhost:31017",
 		"user",
 		"table_name",
 		nil,
@@ -74,7 +74,7 @@ func TestMgo_FindAll(t *testing.T) {
 
 func TestMgo_Delete(t *testing.T) {
 	var mgo = &Mgo{
-		"mongodb://localhost:27017",
+		"mongodb://localhost:31017",
 		"user",
 		"table_name",
 		nil,

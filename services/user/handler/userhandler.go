@@ -1,12 +1,12 @@
 package handler
 
 import (
+	"example.com/m/common/baserequest"
+	"example.com/m/common/baseresponse"
+	"example.com/m/services/user/logic"
+	"example.com/m/services/user/typeuser"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"project_golang/common/baserequest"
-	"project_golang/common/baseresponse"
-	"project_golang/services/user/logic"
-	"project_golang/services/user/typeuser"
 )
 
 type UserHandler struct {

@@ -2,18 +2,18 @@ package main
 
 import (
 	"encoding/json"
+	"example.com/m/common/baseresponse"
+	"example.com/m/common/mgodb"
+	"example.com/m/services/user/cmd/api/config"
+	"example.com/m/services/user/handler"
+	logic2 "example.com/m/services/user/logic"
+	"example.com/m/services/user/model"
 	"flag"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
 	"net/http"
 	"os"
-	"project_golang/common/baseresponse"
-	"project_golang/common/mgodb"
-	"project_golang/services/user/cmd/api/config"
-	"project_golang/services/user/handler"
-	logic2 "project_golang/services/user/logic"
-	"project_golang/services/user/model"
 	"runtime/debug"
 )
 
@@ -56,7 +56,6 @@ func main() {
 		biz,
 		mgo,
 	}
-
 	logic := logic2.UserLogic{
 		userModel,
 	}

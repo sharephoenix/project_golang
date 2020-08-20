@@ -1,9 +1,9 @@
 package logic
 
 import (
-	"project_golang/common/baseresponse"
-	"project_golang/services/user/model"
-	"project_golang/services/user/typeuser"
+	"example.com/m/common/baseresponse"
+	"example.com/m/services/user/model"
+	"example.com/m/services/user/typeuser"
 )
 
 type UserLogic struct {

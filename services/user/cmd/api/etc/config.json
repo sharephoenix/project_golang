@@ -3,12 +3,12 @@
   "Host": "0.0.0.0",
   "Port": ":9090",
   "Redis": {
-    "Addr": "95.169.15.20:6379",
+    "Addr": "127.0.0.1:31379",
     "Password": "",
     "DB": "user"
   },
   "Mongo": {
-    "Addr": "mongodb://95.169.15.20:27017",
+    "Addr": "mongodb://127.0.0.1:31017",
     "DB": "user",
     "Collection": "user_info"
   },

@@ -1,8 +1,8 @@
 package logic
 
 import (
-	"jwt-go"
-	"project_golang/common/baseresponse"
+	"example.com/m/common/baseresponse"
+	"github.com/dgrijalva/jwt-go"
 	"time"
 )
 
@@ -42,10 +42,10 @@ func GenTokenTest(secretKey string, payloads map[string]interface{}, seconds int
 // 解析里面的数据
 func BackGenToken(jwtToken, secretKey string) (jwt.MapClaims, error) {
 
-	token, err := jwt.Parse(jwtToken, func (token *jwt.Token) (interface{}, error){
+	token, err := jwt.Parse(jwtToken, func(token *jwt.Token) (interface{}, error) {
 		return []byte(secretKey), nil
 	})
-	if err != nil{
+	if err != nil {
 		//fmt.Println("HS256的token解析错误，err:", err)
 		return nil, err
 	}

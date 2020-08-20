@@ -11,20 +11,19 @@ import (
 )
 
 var (
-	userToken =  "%s:%s"
+	userToken = "%s:%s"
 )
 
 type Error struct {
 	Content string
 }
 
-
 type User struct {
-	Account string 		`json:"account"`
-	Password string 	`json:"password"`
-	Name string			`json:"name"`
-	Address string		`json:"address"`
-	Sex int64			`json:"sex"`
+	Account  string `json:"account"`
+	Password string `json:"password"`
+	Name     string `json:"name"`
+	Address  string `json:"address"`
+	Sex      int64  `json:"sex"`
 }
 
 /// 用户注册， 模块
@@ -39,13 +38,16 @@ func Register(account string, password string, name string, address string, sex 
 	client := getRedis()
 	jsonBytes, jsonerror := json.Marshal(user)
 	if jsonerror != nil {
+		fmt.Println("[0]")
 		return &Error{jsonerror.Error()}
 	}
 	err := client.Set(account, string(jsonBytes), 0).Err()
 	if err == nil {
+		fmt.Println("[1]")
 		fmt.Printf("插入数据成功")
 		return nil
 	}
+	fmt.Println("[2]")
 	return &Error{err.Error()}
 }
 
@@ -78,23 +80,19 @@ func Login(account string, password string) *User {
 }
 
 func CreateToken() (*string, *string) {
-	u1 := uuid.Must(uuid.NewV4())
+	u1 := uuid.NewV1()
 	fmt.Printf("UUIDv4: %s\n", u1)
 
 	// or error handling
-	u2, err := uuid.NewV4()
-	if err != nil {
-		fmt.Printf("Something went wrong: %s", err)
-		return nil, nil
-	}
-
+	u2 := uuid.NewV4()
+	fmt.Println(u2.String())
 	token := GetMd5String(base64.URLEncoding.EncodeToString(u2.Bytes()))
 	return &token, nil
 }
 
 func getRedis() redis.Client {
 	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:8001",
+		Addr:     "localhost:31379",
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})

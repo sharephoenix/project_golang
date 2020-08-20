@@ -6,6 +6,6 @@ import (
 )
 
 func CreateUUID() string {
-	u1 := uuid.Must(uuid.NewV4())
+	u1 := uuid.NewV4()
 	return fmt.Sprint(u1)
 }

@@ -2,10 +2,10 @@ package model
 
 import (
 	"encoding/json"
+	"example.com/m/common/baseresponse"
+	"example.com/m/services/user/typeuser"
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
-	"project_golang/common/baseresponse"
-	"project_golang/services/user/typeuser"
 )
 
 func (mm *UserModel) MgoFindUser(mobile string) (*typeuser.User, error) {

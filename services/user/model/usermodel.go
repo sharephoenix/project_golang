@@ -2,13 +2,13 @@ package model
 
 import (
 	"encoding/json"
+	"example.com/m/common/baseresponse"
+	"example.com/m/common/mgodb"
+	uuid2 "example.com/m/common/uuid"
+	"example.com/m/services/user/typeuser"
 	"fmt"
 	"github.com/go-redis/redis"
 	"math/rand"
-	"project_golang/common/baseresponse"
-	"project_golang/common/mgodb"
-	uuid2 "project_golang/common/uuid"
-	"project_golang/services/user/typeuser"
 	"strconv"
 	"time"
 )

@@ -1,0 +1,8 @@
+# .prettierrc
+# 关于function后面是否追加空格，这里有讨论 https://github.com/prettier/prettier/issues/3847，目前方案还没有定，所以先这样
+printWidth: 80
+semi: false
+singleQuote: true
+bracketSpacing: true
+eslintIntegration: true
+ 

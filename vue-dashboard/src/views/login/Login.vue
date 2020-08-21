@@ -11,6 +11,7 @@
         <span @click="loginAction">登陆</span>
         <span @click="sendCode">发送验证码</span>
       </div>
+      <div @click="testAction">test</div>
     </div>
   </div>
 </template>
@@ -67,7 +68,17 @@ export default {
         return
       }
 
-      fetchLogin({ mobile: this.mobile, code: this.code })
+      fetchLogin({ mobile: this.mobile, code: this.code }, res => {
+        console.log('[result]', res)
+        if (res.code === 0) {
+          localStorage.setItem('loginUserinfo', JSON.stringify(res))
+          this.$nextTick(() => {
+            this.$router.push('/home')
+          })
+        } else {
+          alert(res.msg)
+        }
+      })
     },
     sendCode () {
       const isMobile = this.isMobileNumber(this.mobile)
@@ -77,7 +88,9 @@ export default {
         return
       }
       console.log(this.mobile)
-      getMobileCode(this.mobile)
+      getMobileCode(this.mobile, res => {
+        console.log('[result]', res)
+      })
     },
     isMobileNumber (phone) {
       if (typeof phone !== 'string') {
@@ -108,6 +121,12 @@ export default {
         return true
       }
       return false
+    },
+    testAction () {
+      const l = localStorage.getItem('Token')
+      console.log(l)
+      const info = localStorage.getItem('loginUserinfo')
+      console.log('[fff]', JSON.parse(info).data.accessToken)
     }
   }
 }

@@ -63,7 +63,7 @@ func TestMgo_InsertOne(t *testing.T) {
 func TestMgo_Update(t *testing.T) {
 	var collection mongo.Collection
 	var mgo = &Mgo{
-		"mongodb://localhost:31017",
+		"mongodb://127.0.0.1:31017",
 		"user0",
 		"table_name0",
 		&collection,

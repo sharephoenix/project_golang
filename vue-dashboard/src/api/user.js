@@ -1,19 +1,19 @@
 import axios from 'axios'
 
-export function getMobileCode () {
-  const instance = axios.create({
-    baseURL: 'http://localhost:9090'
-  })
-  instance.get('/getCode/18817322818').then(res => {
+const instance = axios.create({
+  baseURL: 'http://localhost:9090',
+  headers: { version: '3' }
+})
+
+// 发送验证码给对应的邮箱
+export function getMobileCode (mobile) {
+  instance.get(`/sendCode/${mobile}`).then(res => {
     console.log(res)
   })
 }
 
+// 注册用户
 export function register (data) {
-  const instance = axios.create({
-    headers: { version: '3' },
-    baseURL: 'http://localhost:9090'
-  })
   const { nickname, email, address, avatar, mobile, age } = data
   instance.post('/register', { nickname, email, address, avatar, mobile, age }).then(res => {
     console.log(res)

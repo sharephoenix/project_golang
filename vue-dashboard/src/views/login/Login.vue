@@ -17,7 +17,7 @@
 
 <script>
 
-import { getMobileCode } from '@/api/user'
+import { getMobileCode, fetchLogin } from '@/api/user'
 
 export default {
   name: 'Login',
@@ -56,13 +56,27 @@ export default {
   methods: {
     loginAction () {
       console.log('[loginAction]')
-    },
-    sendCode () {
       const isMobile = this.isMobileNumber(this.mobile)
-      if (isMobile !== false) {
+      if (isMobile === false) {
         alert(isMobile)
         return
       }
+
+      if (this.isEmptyString(this.code) === true) {
+        alert('请输入验证码')
+        return
+      }
+
+      fetchLogin({ mobile: this.mobile, code: this.code })
+    },
+    sendCode () {
+      const isMobile = this.isMobileNumber(this.mobile)
+      console.log(typeof isMobile)
+      if (isMobile !== true) {
+        alert(isMobile)
+        return
+      }
+      console.log(this.mobile)
       getMobileCode(this.mobile)
     },
     isMobileNumber (phone) {
@@ -85,6 +99,15 @@ export default {
         return message
       }
       return flag
+    },
+    isEmptyString (s) {
+      if (typeof s !== 'string') {
+        return true
+      }
+      if (s.trim().length === 0) {
+        return true
+      }
+      return false
     }
   }
 }

@@ -19,3 +19,10 @@ export function register (data) {
     console.log(res)
   })
 }
+
+export function fetchLogin (data) {
+  const { mobile, code } = data
+  instance.post('/login', { mobile, code }).then(res => {
+    console.log(res)
+  })
+}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"sync"
 )
@@ -13,14 +14,12 @@ type LessBase struct {
 	Age string `json:"age"`
 }
 
-
-
 type User struct {
 	UserBase
 	LessBase
-	Name string `json:"name"`
+	Name    string `json:"name"`
 	Address string `json:"address"`
-	Flag bool `json:"flag,omitempty"`
+	Flag    bool   `json:"flag,omitempty"`
 }
 
 //golang chan<- 和 <-chan，作为函数参数时
@@ -32,24 +31,23 @@ type User struct {
 //
 //chan<- int  像这样的只能发送值
 
-func sendchan(s chan<- int)  {
+func sendchan(s chan<- int) {
 	s <- 100
 }
 
 func receive(s <-chan int) {
 	a := <-s
-	fmt.Println( "a",a)
+	fmt.Println("a", a)
 }
 
 func main() {
 
-<<<<<<< HEAD:demo/godemo/cmd/main.go
 	var user User
 	user.Name = "alexluan"
 	user.Address = "shanghai"
 	user.Flag = false
 	jbyt, _ := json.Marshal(user)
-=======
+	fmt.Print(string(jbyt))
 	myNum := []int{10, 20, 30, 40, 50}
 	// 创建新的切片，其长度为 2 个元素，容量为 4 个元素
 	newNum := myNum[1:3]
@@ -107,7 +105,6 @@ func main() {
 	//	fmt.Println(key, v)
 	//}
 
-
 	//arr := []int{1,2,3,4,5,6,7}
 	//for key := range arr {
 	//	fmt.Println(key)
@@ -121,9 +118,6 @@ func main() {
 	//jbyt, _ := json.Marshal(user)
 	//fmt.Println(string(jbyt))
 
-
->>>>>>> f9b284fa7253a6e4ba7f7cc06b73c8ecea2aa35b:godemo/cmd/main.go
-
 	//fmt.Println("start")
 	//defer fmt.Println("end")
 	//TestSyncMap()
@@ -134,17 +128,17 @@ func main() {
 }
 
 func TestSyncMap() {
-		var m sync.Map
-		m.Store("method", "eth_getBlockByHash")
-		m.Store("jsonrpc", "2.0")
-		//value, ok := m.Load("method")
-		//t.Logf("value=%v,ok=%v\n", value, ok)
-		//f := func(key, value string) {
-		//
-		//}
-		//f("method", "eth_getBlockByHash")
-		m.Range(func(key, value interface{}) bool {
-			fmt.Println("range k:%v,v=%v\n", key, value)
-			return true
-		})
+	var m sync.Map
+	m.Store("method", "eth_getBlockByHash")
+	m.Store("jsonrpc", "2.0")
+	//value, ok := m.Load("method")
+	//t.Logf("value=%v,ok=%v\n", value, ok)
+	//f := func(key, value string) {
+	//
+	//}
+	//f("method", "eth_getBlockByHash")
+	m.Range(func(key, value interface{}) bool {
+		fmt.Println("range k:%v,v=%v\n", key, value)
+		return true
+	})
 }

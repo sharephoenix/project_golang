@@ -1,13 +1,21 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:9090',
+  baseURL: 'http://127.0.0.1:30009',
   headers: { version: '3' }
 })
 
 // 发送验证码给对应的邮箱
 export function getMobileCode (mobile, callback) {
   instance.get(`/sendCode/${mobile}`).then(res => {
+    console.log(res)
+    callback(res.data)
+  })
+}
+
+// 获取所有用户信息
+export function fetchUsers (callback) {
+  instance.get('/getUsers').then(res => {
     console.log(res)
     callback(res.data)
   })

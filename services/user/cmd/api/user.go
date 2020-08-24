@@ -20,12 +20,12 @@ import (
 var configFile = flag.String("f", "etc/config.json", "the config file")
 
 func main() {
-	//flag.Parse()
+	flag.Parse()
 	//var c config.Config
 	//conf.MustLoad(*configFile, &c)cd m
 	fmt.Println("begining!!!")
 	// 配置初始化
-	file, _ := os.Open("etc/config.json")
+	file, _ := os.Open(*configFile)
 	defer file.Close()
 	decoder := json.NewDecoder(file)
 	conf := config.Config{}

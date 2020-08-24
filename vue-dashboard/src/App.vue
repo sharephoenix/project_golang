@@ -7,17 +7,17 @@
 <script>
 export default {
   mounted () {
+    console.log('[App]', this.$route.path)
     let info = localStorage.getItem('loginUserinfo')
     info = JSON.parse(info)
     if (typeof info.data.accessToken === 'string' && info.data.accessToken.length > 0) {
-      this.$nextTick(() => {
-        this.$router.push('/home')
-      })
+      if (this.$route.path === '/home') {
+        return
+      }
+      this.$router.push('/home')
     } else {
       console.log('[info]', JSON.parse(info))
-      this.$nextTick(() => {
-        this.$router.push('/login')
-      })
+      this.$router.push('/login')
     }
   }
 }

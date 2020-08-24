@@ -3,14 +3,16 @@
   "Host": "0.0.0.0",
   "Port": ":9090",
   "Redis": {
-    "Addr": "127.0.0.1:31379",
+    "Addr": "redis-service.new-namespace:6379",
     "Password": "",
-    "DB": "user"
+    "DB": "user",
+    "des": "6379:31379"
   },
   "Mongo": {
-    "Addr": "mongodb://127.0.0.1:31017",
+    "Addr": "mongodb://mongo-service.new-namespace:27017",
     "DB": "user",
-    "Collection": "user_info"
+    "Collection": "user_info",
+    "desc": "27017:31017"
   },
   "Auth":{
     "AccessSecret":"abcdbbbbbbb"

@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+  namespace: new-namespace
+spec:
+  ports:
+    - port: 6379    # servicePort
+      nodePort: 31379 # nodePort
+      targetPort: 6379  # containerPort
+      protocol: TCP
+  selector:
+    app: redis-app
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment-demo
+  namespace: new-namespace
+  labels:
+    app: redis-deployment-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: redis-app
+    spec:
+      containers:
+        - name: redis
+          image: redis
+          ports:
+            - containerPort: 6379

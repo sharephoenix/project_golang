@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zc-service
+  namespace: new-namespace # 不知道为什么，mac 上使用 namespace 宿主机无法访问
+spec:
+  selector:
+    app: zc-container
+  type: NodePort
+  ports:
+  - name: http 
+    port: 9090  # container 暴露的端口号 # Inside the cluster, what port does the service expose?
+    nodePort: 30009 # 内部访问的端口号 # Which port on the node is the service available through?
+    targetPort: 9090  # Which port do pods selected by this service expose?
+    protocol: TCP
+  externalIPs: 
+  - 100.100.100.100 # 暴露给外部使用的ip；外部调用 localhost:30009
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zc-deployment
+  namespace: new-namespace
+  labels:
+    app: zc-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: zc-container
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: zc-container
+    spec:
+      # hostNetwork: true
+      containers:
+      - name: zc-container
+        image: luanys/services-user:1.0.1
+        ports:
+        - containerPort: 9090
+
+  

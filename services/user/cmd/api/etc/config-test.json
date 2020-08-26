@@ -3,13 +3,13 @@
   "Host": "0.0.0.0",
   "Port": ":9090",
   "Redis": {
-    "Addr": "redis-service.new-namespace:6379",
+    "Addr": "localhost:31379",
     "Password": "",
     "DB": "user",
     "des": "6379:31379|redis-service.new-namespace:31379"
   },
   "Mongo": {
-    "Addr": "mongodb://mongo-service.new-namespace:27017",
+    "Addr": "mongodb://localhost:31017",
     "DB": "user",
     "Collection": "user_info",
     "desc": "27017:31017|mongodb://mongo-service.new-namespace:27017"

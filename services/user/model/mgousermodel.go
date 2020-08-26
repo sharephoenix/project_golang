@@ -12,6 +12,7 @@ func (mm *UserModel) MgoFindUser(mobile string) (*typeuser.User, error) {
 	var user typeuser.User
 	err := mm.Collection.FindOne(bson.M{"mobile": mobile}, &user)
 	if err != nil {
+		fmt.Println("没有获取到报错了", err.Error())
 		return nil, err
 	}
 	return &user, nil

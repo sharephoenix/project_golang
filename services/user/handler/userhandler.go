@@ -5,6 +5,7 @@ import (
 	"example.com/m/common/baseresponse"
 	"example.com/m/services/user/logic"
 	"example.com/m/services/user/typeuser"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -72,6 +73,7 @@ func (ll *UserHandler) Register(accessSecret string) func(*gin.Context) {
 func (ll *UserHandler) SendCode(context *gin.Context) {
 	context.Request.Header["Test-Header"] = []string{"TESSSSS"}
 	mobile := context.Param("mobile")
+	fmt.Println("sendCode", mobile)
 	err := ll.Logic.SendCode(mobile)
 	resp := baseresponse.ConvertGinResonse(nil, err)
 	context.JSON(200, resp)

@@ -17,7 +17,7 @@ import (
 	"runtime/debug"
 )
 
-var configFile = flag.String("f", "etc/config.json", "the config file")
+var configFile = flag.String("f", "etc/config-test.json", "the config file")
 
 func main() {
 	flag.Parse()
@@ -34,11 +34,11 @@ func main() {
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
-
+	fmt.Println(conf.Redis.Addr, conf.Redis.Password)
 	biz := redis.NewClient(&redis.Options{
 		Addr:     conf.Redis.Addr,
-		Password: "", // no password set
-		DB:       0,  // use default DB
+		Password: conf.Redis.Password, // no password set
+		DB:       0,                   // use default DB
 	})
 	pong, err := biz.Ping().Result()
 	fmt.Println(pong, err)

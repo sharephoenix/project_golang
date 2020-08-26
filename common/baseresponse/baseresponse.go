@@ -2,12 +2,13 @@ package baseresponse
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
-type ErrorResponse struct{
-	Code int64 `json:"code"`
-	Msg string `json:"msg,omitempty"`
+type ErrorResponse struct {
+	Code int64       `json:"code"`
+	Msg  string      `json:"msg,omitempty"`
 	Data interface{} `json:"data,omitempty"`
 }
 
@@ -15,11 +16,11 @@ type LysError struct {
 	Msg string `json:"msg"`
 }
 
-func (err *LysError)Error() string {
+func (err *LysError) Error() string {
 	return err.Msg
 }
 func FormatResponse(data interface{}, err error) string {
-	resp := ErrorResponse {
+	resp := ErrorResponse{
 		0,
 		err.Error(),
 		data,
@@ -40,6 +41,7 @@ func FormatResponse(data interface{}, err error) string {
 }
 
 func ConvertGinResonse(data interface{}, err error) map[string]interface{} {
+	fmt.Println("convertResponse!!!")
 	resp := ErrorResponse{
 		0,
 		"",

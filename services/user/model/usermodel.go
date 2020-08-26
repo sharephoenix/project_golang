@@ -128,7 +128,9 @@ func (mm *UserModel) CreateLoginCode(mobile string) (*string, error) {
 func (mm *UserModel) GetCode(mobile string) (*string, error) {
 	val, err := mm.Biz.Get(fmt.Sprintf(MoBileCode, mobile)).Result()
 	if err != nil {
+		fmt.Println("ed:", err.Error())
 		return nil, err
 	}
+	fmt.Println("==")
 	return &val, nil
 }

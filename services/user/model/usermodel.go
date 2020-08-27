@@ -118,7 +118,7 @@ func (mm *UserModel) CreateLoginCode(mobile string) (*string, error) {
 	if code == "" {
 		return nil, &baseresponse.LysError{"生成验证码失败"}
 	}
-	err := mm.Biz.Set(fmt.Sprintf(MoBileCode, mobile), code, 60*time.Second).Err()
+	err := mm.Biz.Set(fmt.Sprintf(MoBileCode, mobile), code, 3600*time.Second).Err()
 	if err != nil {
 		return nil, err
 	}

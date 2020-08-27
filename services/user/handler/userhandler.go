@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"example.com/m/common/baserequest"
 	"example.com/m/common/baseresponse"
 	"example.com/m/services/user/logic"
@@ -49,6 +50,10 @@ func (ll *UserHandler) Register(accessSecret string) func(*gin.Context) {
 		var reqUser ReqUser
 		baserequest.GetBody(context, &reqUser)
 
+		byt, err := json.Marshal(reqUser)
+		if err == nil {
+			fmt.Println(string(byt))
+		}
 		accessToken, err := logic.GenTokenTest(accessSecret, map[string]interface{}{typeuser.JwtUserField: reqUser.Mobile, typeuser.JwtVersionField: "v1.0.1"}, 100000000000000000)
 		if err == nil {
 			context.Request.Header["Authorization"] = []string{accessToken}
@@ -92,8 +97,12 @@ func (ll *UserHandler) Login(secretKey string) func(ctx *gin.Context) {
 	return func(context *gin.Context) {
 		var loginReq LoginReq
 		baserequest.GetBody(context, &loginReq)
+		byts, err := json.Marshal(loginReq)
+		if err == nil {
+			fmt.Println(string(byts))
+		}
 		if loginReq.Mobile == "" || loginReq.Code == "" {
-			resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"参数错误"})
+			resp := baseresponse.ConvertGinResonse(nil, &baseresponse.LysError{"登录参数错误"})
 			context.JSON(200, resp)
 			return
 		}

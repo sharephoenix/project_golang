@@ -15,7 +15,7 @@ class TTest extends React.Component<IAppProps,IAppComState> {
 
   nickname: string = 'alexluan'
   address?: string = '--'
-
+  
   constructor(props: IAppProps) { 
     super(props)
     this.address = props.address
@@ -23,7 +23,7 @@ class TTest extends React.Component<IAppProps,IAppComState> {
     this.state = {
       nicknames: this.props.address || 'vvvvvv'
     }
-    this.clickHandler = this.clickHandler.bind(this);
+    // this.clickHandler = this.clickHandler.bind(this);
   }
 
   onStart() { 
@@ -34,7 +34,7 @@ class TTest extends React.Component<IAppProps,IAppComState> {
     return 'this is my custom function!!!'
   }
 
-  clickHandler() { 
+  clickHandler = () => { 
     console.log('clickHandler', this.setState)
     this.setState({
       nicknames: "ericjump"

@@ -7,7 +7,7 @@ import (
 )
 
 type SM struct {
-	Map    map[string]string
+	Map  map[string]string
 	lock sync.RWMutex // 加锁
 }
 

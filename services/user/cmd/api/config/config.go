@@ -21,6 +21,13 @@ type Mongo struct {
 	Collection string
 }
 
+type Mysql struct {
+	Addr     string
+	Password string
+	DB       string
+	desc     string
+}
+
 type Auth struct {
 	AccessSecret string
 }

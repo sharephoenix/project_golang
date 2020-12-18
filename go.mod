@@ -14,7 +14,7 @@ require (
 	github.com/google/uuid v1.1.2 // indirect
 	github.com/satori/go.uuid v1.2.0
 	go.etcd.io/etcd v3.3.25+incompatible
-	go.mongodb.org/mongo-driver v1.4.0
+	go.mongodb.org/mongo-driver v1.4.4
 	go.uber.org/zap v1.16.0 // indirect
 	google.golang.org/grpc v1.26.0 // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
